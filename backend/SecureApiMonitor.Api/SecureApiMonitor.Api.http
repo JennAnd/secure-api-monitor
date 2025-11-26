@@ -1,0 +1,6 @@
+@SecureApiMonitor.Api_HostAddress = http://localhost:5062
+
+GET {{SecureApiMonitor.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
