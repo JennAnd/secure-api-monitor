@@ -1,4 +1,17 @@
+// Sets up the application, configures the database connection, and registers required services
+
+using Microsoft.EntityFrameworkCore;
+using SecureApiMonitor.Api.Data;
+
+// Load application configuration and build the service container
 var builder = WebApplication.CreateBuilder(args);
+// Get the connection string from appsettings.Development.json
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+// Register the EF Core DbContext with PostgreSQL provider
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseNpgsql(connectionString));
+
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
