@@ -12,4 +12,6 @@ public class ApplicationDbContext : DbContext
     }
 
     public DbSet<ApiRequestLog> ApiRequestLogs { get; set; } = null!;
+    // Represents the Users table in the database
+    public DbSet<User> Users { get; set; } = null!;
 }
