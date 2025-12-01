@@ -78,6 +78,9 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
+// Log all requests
+app.UseMiddleware<RequestLoggingMiddleware>();
+
 // Map attribute-routed controllers like AuthController
 app.MapControllers();
 
