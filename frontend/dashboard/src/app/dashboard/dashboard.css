@@ -14,3 +14,17 @@
 .dashboard-content {
   padding: 16px;
 }
+
+.layout {
+  display: flex;
+  min-height: calc(100vh - 64px);
+}
+
+.sidebar-wrapper {
+  flex-shrink: 0;
+}
+
+.dashboard-container {
+  padding: 24px;
+  flex-grow: 1;
+}
