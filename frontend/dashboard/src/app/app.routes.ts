@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login';
 import { DashboardComponent } from './dashboard/dashboard';
 import { RegisterComponent } from './auth/register/register';
+import { authGuard } from './auth/auth.guard';
 
 // All routes for the application
 export const routes: Routes = [
@@ -12,7 +13,7 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
 
   // Main dashboard page
-  { path: 'dashboard', component: DashboardComponent },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard] },
 
   // Redirect the root URL to /login
   { path: '', redirectTo: 'login', pathMatch: 'full' },
