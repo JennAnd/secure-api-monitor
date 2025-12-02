@@ -1,0 +1,39 @@
+.brand {
+  font-weight: 600;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.navbar {
+  display: flex;
+  height: 56px;
+  background: #fafafa;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  font-family: Arial, sans-serif;
+}
+
+.navbar-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.logout-btn {
+  background: transparent;
+  border: 1px solid #888;
+  padding: 6px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #333;
+  font-size: 14px;
+}
+
+.logout-btn:hover {
+  background: #e9e9e9;
+}

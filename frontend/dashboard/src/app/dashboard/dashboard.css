@@ -10,3 +10,7 @@
 .dashboard-container p {
   margin-bottom: 8px;
 }
+
+.dashboard-content {
+  padding: 16px;
+}
