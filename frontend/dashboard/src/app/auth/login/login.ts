@@ -40,7 +40,7 @@ export class LoginComponent {
       next: () => {
         this.isLoading = false;
         // After successful login, navigate to the main dashboard
-        this.router.navigate(['/']);
+        this.router.navigate(['/dashboard']);
       },
       error: (error) => {
         this.isLoading = false;

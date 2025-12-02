@@ -1,0 +1,12 @@
+.dashboard-container {
+  min-height: 100vh;
+  padding: 24px;
+}
+
+.dashboard-container h1 {
+  margin-bottom: 12px;
+}
+
+.dashboard-container p {
+  margin-bottom: 8px;
+}
