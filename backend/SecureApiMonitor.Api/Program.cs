@@ -7,6 +7,9 @@ using Microsoft.IdentityModel.Tokens;
 using SecureApiMonitor.Api.Auth;
 using System.Threading.RateLimiting;
 using Microsoft.AspNetCore.RateLimiting;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using System.Reflection;
 
 
 // Load application configuration and build the service container
@@ -35,6 +38,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 // Add services to the container
 builder.Services.AddControllers();
+
+// Enable automatic model validation with FluentValidation
+builder.Services.AddFluentValidationAutoValidation();
+
+// Register all validators that exist in this API project
+builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
