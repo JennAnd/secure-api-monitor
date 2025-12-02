@@ -48,6 +48,17 @@ builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Allow the Angular frontend on localhost:4200 to call this API
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 builder.Services.AddRateLimiter(options =>
 {
     // Return 429 when a client is rate limited
@@ -110,6 +121,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Enable CORS so the Angular app can reach this API from another origin
+app.UseCors("AllowFrontend");
 
 // Apply rate limiting to all incoming requests
 app.UseRateLimiter();

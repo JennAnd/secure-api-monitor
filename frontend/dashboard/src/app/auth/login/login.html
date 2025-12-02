@@ -1,0 +1,38 @@
+<div class="login-container">
+  <mat-card class="login-card">
+    <h2>Secure API Monitor</h2>
+    <p class="subtitle">Sign in to your monitoring dashboard</p>
+
+    <form (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Username</mat-label>
+        <input matInput [(ngModel)]="username" name="username" autocomplete="username" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Password</mat-label>
+        <input
+          matInput
+          [(ngModel)]="password"
+          name="password"
+          type="password"
+          autocomplete="current-password"
+        />
+      </mat-form-field>
+
+      <button
+        mat-raised-button
+        color="primary"
+        class="full-width"
+        type="submit"
+        [disabled]="isLoading"
+      >
+        {{ isLoading ? 'Logging in...' : 'Login' }}
+      </button>
+    </form>
+
+    <p *ngIf="errorMessage" class="error">
+      {{ errorMessage }}
+    </p>
+  </mat-card>
+</div>
