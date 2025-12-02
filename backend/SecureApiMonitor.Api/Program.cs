@@ -5,6 +5,8 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using SecureApiMonitor.Api.Auth;
+using System.Threading.RateLimiting;
+using Microsoft.AspNetCore.RateLimiting;
 
 
 // Load application configuration and build the service container
@@ -36,6 +38,32 @@ builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddRateLimiter(options =>
+{
+    // Return 429 when a client is rate limited
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+
+    // Global limiter: applies to all endpoints, per IP
+    options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(context =>
+
+    {
+        var ip = context.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+
+        return RateLimitPartition.GetFixedWindowLimiter(ip, _ => new FixedWindowRateLimiterOptions
+        {
+            // Allow 100 requests
+            PermitLimit = 100,
+
+            // Per 5 minutes
+            Window = TimeSpan.FromMinutes(5),
+
+            // Do not queue extra requests
+            QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
+            QueueLimit = 0
+        });
+    });
+});
 
 // Configure JWT-based authentication.
 builder.Services.AddAuthentication(options =>
@@ -73,6 +101,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Apply rate limiting to all incoming requests
+app.UseRateLimiter();
 
 // Enable authentication and authorization.
 app.UseAuthentication();
