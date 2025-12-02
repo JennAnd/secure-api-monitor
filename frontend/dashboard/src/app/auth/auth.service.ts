@@ -32,6 +32,14 @@ export class AuthService {
       );
   }
 
+  // Sends a request to create a new user account
+  register(username: string, password: string): Observable<any> {
+    return this.http.post(`${this.apiBaseUrl}/auth/register`, {
+      username,
+      password,
+    });
+  }
+
   // Save token in browser storage
   private saveToken(token: string): void {
     localStorage.setItem(this.tokenKey, token);

@@ -1,9 +1,9 @@
 <div class="login-container">
   <mat-card class="login-card">
-    <h2>Secure API Monitor</h2>
-    <p class="subtitle">Sign in to your monitoring dashboard</p>
-    <p *ngIf="successMessage" class="success">🎉 {{ successMessage }}</p>
-    <form (ngSubmit)="onSubmit()">
+    <h2>Create Account</h2>
+    <p class="subtitle">Register a new account to access your monitoring dashboard</p>
+
+    <form (ngSubmit)="onRegister()">
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Username</mat-label>
         <input matInput [(ngModel)]="username" name="username" autocomplete="username" />
@@ -16,10 +16,11 @@
           [(ngModel)]="password"
           name="password"
           type="password"
-          autocomplete="current-password"
+          autocomplete="new-password"
         />
       </mat-form-field>
 
+      <!-- Create account button -->
       <button
         mat-raised-button
         color="primary"
@@ -27,7 +28,18 @@
         type="submit"
         [disabled]="isLoading"
       >
-        {{ isLoading ? 'Logging in...' : 'Login' }}
+        {{ isLoading ? 'Creating account...' : 'Create account' }}
+      </button>
+
+      <!-- Back to login -->
+      <button
+        mat-button
+        class="full-width secondary-btn"
+        type="button"
+        (click)="goToLogin()"
+        [disabled]="isLoading"
+      >
+        Back to login
       </button>
     </form>
 

@@ -6,44 +6,30 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-register',
   standalone: true,
   imports: [CommonModule, FormsModule, MatCardModule, MatButtonModule, MatInputModule],
-  templateUrl: './login.html',
-  styleUrls: ['./login.css'],
+  templateUrl: './register.html',
+  styleUrl: './register.css',
 })
-export class LoginComponent {
+export class RegisterComponent {
   // Bound to the form inputs
   username = '';
   password = '';
 
-  // Simple UI state flags
+  // UI state flags
   isLoading = false;
   errorMessage = '';
-  successMessage = '';
 
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
-  ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
-      if (params['registered'] === 'true') {
-        this.successMessage = 'Your account has been created. Please log in.';
-      }
-    });
-  }
-
-  // Called when the user presses the login button
-  onSubmit(): void {
+  // Called when the user presses the create account button
+  onRegister(): void {
     this.errorMessage = '';
-    this.successMessage = '';
 
+    // Check that both fields are filled
     if (!this.username || !this.password) {
       this.errorMessage = 'Please enter both username and password.';
       return;
@@ -51,16 +37,22 @@ export class LoginComponent {
 
     this.isLoading = true;
 
-    this.authService.login(this.username, this.password).subscribe({
+    // Call backend /auth/register endpoint
+    this.authService.register(this.username, this.password).subscribe({
       next: () => {
         this.isLoading = false;
-        // After successful login, navigate to the main dashboard
-        this.router.navigate(['/dashboard']);
+        // After successful registration, navigate back to the login page
+        this.router.navigate(['/login'], { queryParams: { registered: 'true' } });
       },
       error: (error) => {
         this.isLoading = false;
-        this.errorMessage = error?.error ?? 'Login failed. Please check your credentials.';
+        this.errorMessage = error?.error ?? 'Registration failed. Please check your input.';
       },
     });
+  }
+
+  // Called when the user wants to go back to the login page
+  goToLogin(): void {
+    this.router.navigate(['/login']);
   }
 }
