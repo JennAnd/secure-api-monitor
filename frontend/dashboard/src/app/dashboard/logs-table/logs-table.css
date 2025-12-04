@@ -21,3 +21,18 @@
 .error {
   color: #c62828;
 }
+
+.logs-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 12px 0 16px;
+  font-size: 14px;
+}
+
+.logs-filters label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+

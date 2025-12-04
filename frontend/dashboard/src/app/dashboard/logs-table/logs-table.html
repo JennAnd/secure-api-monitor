@@ -1,5 +1,51 @@
 <div class="logs-wrapper">
   <h2>API Logs</h2>
+  <p>logs: {{ logs.length }} | filteredLogs: {{ filteredLogs.length }} | loading: {{ isLoading }}</p>
+
+
+  <div class="logs-filters">
+  <!-- Filter by endpoint (contains match) -->
+  <label>
+    Endpoint:
+    <input
+      type="text"
+      [(ngModel)]="endpointFilter"
+      (ngModelChange)="applyFilters()"
+      placeholder="/api/auth"
+    />
+  </label>
+
+  <!-- Filter by status code -->
+  <label>
+    Status:
+    <input
+      type="number"
+      [(ngModel)]="statusFilter"
+      (ngModelChange)="applyFilters()"
+      placeholder="200"
+    />
+  </label>
+
+  <!-- Filter by date range -->
+  <label>
+    From:
+    <input
+      type="date"
+      [(ngModel)]="dateFrom"
+      (ngModelChange)="applyFilters()"
+    />
+  </label>
+
+  <label>
+    To:
+    <input
+      type="date"
+      [(ngModel)]="dateTo"
+      (ngModelChange)="applyFilters()"
+    />
+  </label>
+</div>
+
 
   <!-- Loading spinner text -->
   <p *ngIf="isLoading">Loading logs...</p>
@@ -8,7 +54,7 @@
   <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
 
   <!-- If logs exist, show the material table -->
-  <table mat-table [dataSource]="logs" class="mat-elevation-z2" *ngIf="!isLoading && logs.length > 0">
+  <table mat-table [dataSource]="filteredLogs" class="mat-elevation-z2" *ngIf="filteredLogs.length > 0">
 
     <!-- Timestamp -->
     <ng-container matColumnDef="timestamp">
@@ -47,5 +93,5 @@
   </table>
 
   <!-- If no logs -->
-  <p *ngIf="!isLoading && logs.length === 0">No logs found.</p>
+  <p *ngIf="!isLoading && filteredLogs.length === 0">No logs found.</p>
 </div>
