@@ -1,4 +1,51 @@
-<div class="logs-table-placeholder">
-  <p>Logs table will be shown here.</p>
-</div>
+<div class="logs-wrapper">
+  <h2>API Logs</h2>
 
+  <!-- Loading spinner text -->
+  <p *ngIf="isLoading">Loading logs...</p>
+
+  <!-- Error message -->
+  <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+
+  <!-- If logs exist, show the material table -->
+  <table mat-table [dataSource]="logs" class="mat-elevation-z2" *ngIf="!isLoading && logs.length > 0">
+
+    <!-- Timestamp -->
+    <ng-container matColumnDef="timestamp">
+      <th mat-header-cell *matHeaderCellDef> Timestamp </th>
+      <td mat-cell *matCellDef="let log"> {{ log.timestamp }} </td>
+    </ng-container>
+
+    <!-- Method -->
+    <ng-container matColumnDef="method">
+      <th mat-header-cell *matHeaderCellDef> Method </th>
+      <td mat-cell *matCellDef="let log"> {{ log.method }} </td>
+    </ng-container>
+
+    <!-- Endpoint -->
+    <ng-container matColumnDef="endpoint">
+      <th mat-header-cell *matHeaderCellDef> Endpoint </th>
+      <td mat-cell *matCellDef="let log"> {{ log.endpoint }} </td>
+    </ng-container>
+
+    <!-- Status -->
+    <ng-container matColumnDef="statusCode">
+      <th mat-header-cell *matHeaderCellDef> Status </th>
+      <td mat-cell *matCellDef="let log"> {{ log.statusCode }} </td>
+    </ng-container>
+
+    <!-- Response Time -->
+    <ng-container matColumnDef="responseTimeMs">
+      <th mat-header-cell *matHeaderCellDef> Time (ms) </th>
+      <td mat-cell *matCellDef="let log"> {{ log.responseTimeMs }} </td>
+    </ng-container>
+
+    <!-- Header & row defs -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+  </table>
+
+  <!-- If no logs -->
+  <p *ngIf="!isLoading && logs.length === 0">No logs found.</p>
+</div>
