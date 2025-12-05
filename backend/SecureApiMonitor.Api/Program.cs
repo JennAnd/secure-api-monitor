@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.RateLimiting;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using System.Reflection;
+using Microsoft.OpenApi.Models;
 
 
 // Load application configuration and build the service container
@@ -46,7 +47,38 @@ builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "SecureApiMonitor.Api",
+        Version = "v1"
+    });
+
+    // Enable JWT Bearer in Swagger (Authorize-button)
+    var jwtSecurityScheme = new OpenApiSecurityScheme
+    {
+        Scheme = "bearer",
+        BearerFormat = "JWT",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.Http,
+        Description = "Enter: Bearer {your JWT token}",
+
+        Reference = new OpenApiReference
+        {
+            Id = "Bearer",
+            Type = ReferenceType.SecurityScheme
+        }
+    };
+
+    options.AddSecurityDefinition("Bearer", jwtSecurityScheme);
+
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        { jwtSecurityScheme, Array.Empty<string>() }
+    });
+});
 
 // Allow the Angular frontend on localhost:4200 to call this API
 builder.Services.AddCors(options =>
