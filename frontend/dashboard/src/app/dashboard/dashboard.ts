@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../layout/navbar/navbar';
 import { SidebarComponent } from '../layout/sidebar/sidebar';
 import { LogsTableComponent } from './logs-table/logs-table';
+import { StatsChartsComponent } from './stats-charts/stats-charts';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,7 +11,8 @@ import { LogsTableComponent } from './logs-table/logs-table';
   imports: [CommonModule,
      NavbarComponent,
      SidebarComponent,
-     LogsTableComponent],
+     LogsTableComponent,
+     StatsChartsComponent],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.css'],
 })

@@ -1,0 +1,48 @@
+<!-- Shows a simple loading message while statistics are being fetched -->
+<div *ngIf="isLoading">
+  <p>Loading statistics...</p>
+</div>
+
+<!-- Shows an error message if something went wrong -->
+<div *ngIf="!isLoading && errorMessage">
+  <p class="error">{{ errorMessage }}</p>
+</div>
+
+<!-- Main content: only shown when we are not loading and there is no error -->
+<div *ngIf="!isLoading && !errorMessage">
+
+ <div class="stats-grid">
+
+  <!-- Overview of API performance -->
+  <div class="overview-card" *ngIf="overview">
+    <h3>Overview</h3>
+    <p>Total requests: {{ overview.totalRequests }}</p>
+    <p>Error requests: {{ overview.errorRequests }}</p>
+    <p>Error rate: {{ overview.errorRatePercent }}%</p>
+    <p>Average response time: {{ overview.averageResponseTimeMs }} ms</p>
+  </div>
+
+  
+    <!-- Pie chart for success vs error ratio -->
+    <div class="chart-card">
+      <h4>Success vs Errors</h4>
+      <canvas
+        baseChart
+        [data]="pieChartData"
+        [type]="pieChartType">
+      </canvas>
+    </div>
+
+    <!-- Bar chart for requests per endpoint -->
+    <div class="chart-card">
+      <h4>Most used endpoints</h4>
+      <canvas
+        baseChart
+        [data]="barChartData"
+        [type]="barChartType">
+      </canvas>
+    </div>
+  </div>
+
+</div>
+
