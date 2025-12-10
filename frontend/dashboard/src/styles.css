@@ -1,4 +1,117 @@
-/* You can add global styles to this file, and also import other style files */
+/* 
+  Global design tokens for the entire application
+*/
+:root {
+  --bg-main: #f5f1eb; /* Soft beige background */
+  --card-bg: #ffffff; /* White cards and panels */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+  --primary: #c46a2b; /* Muted orange (buttons, highlights) */
+  --secondary: #8a4f2d; /* Deep rust brown (headings, accents) */
+  --accent: #d8a26c; /* Warm light accent color */
+
+  --text-main: #1f1f1f; /* Primary text color (almost black) */
+  --text-muted: #6b6b6b; /* Muted/secondary text */
+
+  --border-subtle: #e1d8cf; /* Soft border for cards/inputs */
+  --error: #c0392b; /* Error red */
+
+  --mdc-theme-primary: var(--primary); /* Tell Angular Material what "primary" is */
+}
+
+/* 
+  Base styling for the entire app 
+*/
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+}
+
+/* Remove default blue browser outline */
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* ---------- ANGULAR MATERIAL GLOBAL OVERRIDES ---------- */
+
+/* Default + hover outline */
+.mat-mdc-text-field-wrapper.mdc-text-field--outlined {
+  --mdc-outlined-text-field-outline-color: var(--border-subtle);
+  --mdc-outlined-text-field-hover-outline-color: var(--primary);
+}
+
+/* Focus outline */
+.mat-mdc-text-field-wrapper.mdc-text-field--focused {
+  --mdc-outlined-text-field-outline-color: var(--primary);
+}
+
+/* Force Angular Material outline stroke */
+.mdc-text-field--focused .mdc-notched-outline__leading,
+.mdc-text-field--focused .mdc-notched-outline__notch,
+.mdc-text-field--focused .mdc-notched-outline__trailing {
+  border-color: var(--primary) !important;
+}
+
+/* Floating label color on focus */
+.mat-mdc-form-field.mat-focused .mat-mdc-floating-label {
+  color: var(--primary) !important;
+}
+
+/* Cursor color */
+.mat-input-element {
+  caret-color: var(--primary);
+}
+
+/* Table header text */
+.mat-mdc-header-cell {
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+/* Table row hover */
+.mat-mdc-row:hover {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+/* Table border */
+.mat-mdc-table {
+  border-color: var(--border-subtle);
+}
+
+/* Remove Material focus indicator */
+.mat-mdc-focus-indicator::before {
+  border-color: transparent !important;
+}
+
+/* ----------------------------------------------------
+   GLOBAL OVERLAY (used for mobile sidebar)
+---------------------------------------------------- */
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(2px);
+
+  opacity: 0;
+  pointer-events: none;
+
+  transition: opacity 0.25s ease;
+  z-index: 900;
+}
+
+.sidebar-overlay.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ----------------------------------------------------
+   CONTENT WRAPPER
+---------------------------------------------------- */
+.content {
+  width: 100%;
+  display: block;
+}

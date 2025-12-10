@@ -1,38 +1,203 @@
+/* ---------------------------------------------------
+   API LOGS
+--------------------------------------------------- */
+
+/* Container card */
 .logs-wrapper {
   margin-top: 16px;
-  padding: 12px;
-  border-radius: 4px;
-  border: 1px solid #e0e0e0;
-  max-height: 400px;
-  overflow-y: auto;
-  background-color: #fafafa;
+  padding: 20px 18px;
+  border-radius: 14px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.05), 0 3px 6px rgba(0, 0, 0, 0.04);
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-
-.logs-wrapper ul {
-  padding-left: 16px;
+/* Heading */
+.logs-wrapper h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-main);
 }
 
-.logs-wrapper li {
-  font-size: 14px;
-  margin-bottom: 4px;
+/* Log counters */
+.logs-wrapper > p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--text-muted);
 }
 
-.error {
-  color: #c62828;
-}
+/* ---------------------------------------------------
+   FILTER INPUTS
+--------------------------------------------------- */
 
 .logs-filters {
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin: 12px 0 16px;
-  font-size: 14px;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .logs-filters label {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
+  font-weight: 500;
+  color: var(--text-main);
+  font-size: 0.9rem;
 }
 
+.logs-filters input {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border-subtle);
+  background: #ffffff;
+
+  font-size: 0.95rem;
+  color: var(--text-main);
+
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+/* Hover */
+.logs-filters input:hover {
+  border-color: var(--primary);
+  background: #fff7f1;
+}
+
+/* Focus */
+.logs-filters input:focus {
+  border-color: var(--primary);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(196, 106, 43, 0.25);
+  outline: none;
+}
+
+/* Placeholder */
+.logs-filters input::placeholder {
+  color: var(--text-muted);
+  opacity: 0.8;
+}
+
+/* ---------------------------------------------------
+   TABLE
+--------------------------------------------------- */
+
+table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 12px;
+  white-space: nowrap;
+}
+
+/* Allow wrapping for cell content */
+.mat-mdc-cell {
+  font-size: 0.9rem;
+  color: var(--text-main);
+  padding-right: 12px;
+
+  white-space: normal;
+  word-break: break-word;
+}
+
+/* At > 480px allow the table to break lines normally */
+@media (min-width: 480px) {
+  table {
+    white-space: normal;
+  }
+}
+
+/* Header cells */
+.mat-mdc-header-cell {
+  font-weight: 600;
+  color: var(--text-main) !important;
+  background: #f8f4ef !important;
+  border-bottom: 1px solid var(--border-subtle);
+  white-space: normal;
+}
+
+/* Force wrap for long columns */
+.mat-column-timestamp,
+.mat-column-endpoint {
+  white-space: normal !important;
+  word-break: break-all;
+}
+
+/* Hover row */
+.mat-mdc-row:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+/* ---------------------------------------------------
+   STATUS COLORS
+--------------------------------------------------- */
+
+.status-success {
+  color: #2e7d32;
+  font-weight: 600;
+}
+
+.status-client-error {
+  color: #c46a2b;
+  font-weight: 600;
+}
+
+.status-server-error {
+  color: #c62828;
+  font-weight: 600;
+}
+
+/* Error message */
+.error {
+  color: var(--error);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+/* ---------------------------------------------------
+   TABLET — 768px
+--------------------------------------------------- */
+
+@media (min-width: 768px) {
+  .logs-wrapper {
+    padding: 24px 26px;
+  }
+
+  .logs-filters {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .logs-filters label {
+    width: calc(50% - 10px);
+  }
+}
+
+/* ---------------------------------------------------
+   DESKTOP — 1024px
+--------------------------------------------------- */
+
+@media (min-width: 1024px) {
+  .logs-wrapper {
+    padding: 28px 30px;
+  }
+
+  .logs-filters {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .logs-filters label {
+    width: auto;
+  }
+
+  table {
+    white-space: normal;
+  }
+}

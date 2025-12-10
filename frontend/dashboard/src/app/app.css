@@ -1,0 +1,19 @@
+/* MOBILE FIRST - content below navbar */
+.content {
+  padding: 20px;
+}
+
+/* DESKTOP LAYOUT: sidebar + content columns */
+@media (min-width: 1024px) {
+  /* Sidebar + content next to each other */
+  .layout {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    min-height: calc(100vh - 64px);
+  }
+
+  /* Content area padding */
+  .content {
+    padding: 34px 40px;
+  }
+}

@@ -1,13 +1,8 @@
-<app-navbar></app-navbar>
-
-<div class="layout">
-  <!-- Sidebar on the left -->
-  <app-sidebar class="sidebar-wrapper"></app-sidebar>
-
-  <div class="dashboard-container">
+<div class="dashboard-container">
+  <div class="dashboard-header">
     <h1>{{ title }}</h1>
     <p>You are logged in — welcome to your Secure API Monitor dashboard</p>
-   <app-stats-charts></app-stats-charts>
-    <app-logs-table></app-logs-table>
-</div>
+  </div>
+  <app-stats-charts></app-stats-charts>
+  <app-logs-table></app-logs-table>
 </div>

@@ -1,30 +1,115 @@
-.dashboard-container {
-  min-height: 100vh;
-  padding: 24px;
-}
+/* --------------------------------------------
+   DASHBOARD LAYOUT
+-------------------------------------------- */
 
-.dashboard-container h1 {
-  margin-bottom: 12px;
-}
-
-.dashboard-container p {
-  margin-bottom: 8px;
-}
-
-.dashboard-content {
-  padding: 16px;
-}
-
+/* Entire page layout - sidebar overlays on mobile */
 .layout {
   display: flex;
+  flex-direction: column;
   min-height: calc(100vh - 64px);
+  background: var(--bg-main);
 }
 
+/* Sidebar wrapper */
 .sidebar-wrapper {
   flex-shrink: 0;
 }
 
+/* Main dashboard container */
 .dashboard-container {
-  padding: 24px;
   flex-grow: 1;
+  padding: 20px;
+  background: var(--bg-main);
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* --------------------------------------------
+   DASHBOARD HEADER (TITLE + SUBTITLE)
+-------------------------------------------- */
+
+.dashboard-header {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.dashboard-header h1 {
+  margin: 0;
+  font-size: 1.55rem;
+  font-weight: 600;
+  color: var(--text-main);
+  letter-spacing: -0.01em;
+}
+
+.dashboard-header p {
+  margin: 12px 0 0;
+  color: var(--text-muted);
+  font-size: 0.98rem;
+}
+
+/* --------------------------------------------
+   DASHBOARD CONTENT SECTIONS (stats + logs)
+-------------------------------------------- */
+
+app-stats-charts,
+app-logs-table {
+  display: block;
+  background: var(--card-bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  padding: 20px 22px;
+
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.05), 0 3px 6px rgba(0, 0, 0, 0.04);
+}
+
+/* --------------------------------------------
+   TABLET LAYOUT
+-------------------------------------------- */
+
+@media (min-width: 600px) {
+  .dashboard-container {
+    padding: 28px;
+    gap: 24px;
+  }
+
+  .dashboard-header {
+    margin: 24px 0;
+  }
+
+  .dashboard-header h1 {
+    font-size: 1.75rem;
+  }
+
+  app-stats-charts,
+  app-logs-table {
+    padding: 24px 28px;
+  }
+}
+
+/* --------------------------------------------
+   DESKTOP LAYOUT (sidebar visible)
+-------------------------------------------- */
+
+@media (min-width: 1024px) {
+  .layout {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    min-height: calc(100vh - 64px);
+  }
+
+  .sidebar-wrapper {
+    position: relative;
+    height: auto;
+  }
+
+  .dashboard-container {
+    padding: 34px 40px;
+    gap: 28px;
+  }
+
+  .dashboard-header {
+    margin-top: 0;
+  }
 }

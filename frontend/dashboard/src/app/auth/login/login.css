@@ -1,31 +1,172 @@
+/* --------------------------------------------
+   LOGIN PAGE
+-------------------------------------------- */
+
+/* Full-page container */
 .login-container {
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: var(--bg-main);
+  padding: 20px;
 }
 
+/* Main login card */
 .login-card {
   width: 100%;
-  max-width: 360px;
-  padding: 24px;
+  max-width: 380px;
+  padding: 28px 26px 32px;
+  border-radius: 14px;
+
+  background: var(--card-bg);
+  border: 1px solid var(--border-subtle);
+
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.05),
+    0 1px 2px rgba(0, 0, 0, 0.03);
 }
 
+/* Title */
+.login-card h2 {
+  margin: 0 0 6px 0;
+  font-size: 1.42rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-main);
+}
+
+/* Subtitle */
+.subtitle {
+  margin: 0 0 24px 0;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+/* Full-width utility */
 .full-width {
   width: 100%;
 }
 
-.subtitle {
+/* Spacing between form fields */
+mat-form-field.full-width {
   margin-bottom: 16px;
-  color: #666;
 }
 
+/* --------------------------------------------
+   INPUT DESIGN
+-------------------------------------------- */
+
+.mdc-text-field {
+  background: #ffffff;
+  border-radius: 10px !important;
+  transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.mdc-notched-outline__leading,
+.mdc-notched-outline__notch,
+.mdc-notched-outline__trailing {
+  border-radius: 10px !important;
+}
+
+.mdc-text-field--outlined {
+  border-radius: 10px !important;
+}
+
+/* Hover feedback */
+.mdc-text-field:hover .mdc-notched-outline__leading,
+.mdc-text-field:hover .mdc-notched-outline__notch,
+.mdc-text-field:hover .mdc-notched-outline__trailing {
+  border-color: var(--primary);
+}
+
+/* Focus outline */
+.mdc-text-field--focused .mdc-notched-outline__leading,
+.mdc-text-field--focused .mdc-notched-outline__notch,
+.mdc-text-field--focused .mdc-notched-outline__trailing {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 2px rgba(196, 106, 43, 0.18);
+}
+
+/* Floating label */
+.mat-mdc-form-field.mat-focused .mat-mdc-floating-label {
+  color: var(--primary) !important;
+}
+
+/* Cursor */
+.mat-input-element {
+  caret-color: var(--primary);
+}
+
+/* --------------------------------------------
+   BUTTON DESIGN
+-------------------------------------------- */
+
+.login-card button[mat-raised-button] {
+  background: linear-gradient(to bottom right, var(--primary), #b65e22);
+  color: #ffffff;
+  border-radius: 999px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 12px 0;
+  font-size: 1rem;
+
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+
+  box-shadow: 0 6px 16px rgba(196, 106, 43, 0.28), 0 2px 4px rgba(196, 106, 43, 0.18);
+}
+
+.login-card button[mat-raised-button]:hover {
+  background: linear-gradient(to bottom right, var(--secondary), #7a3f22);
+  box-shadow: 0 10px 24px rgba(196, 106, 43, 0.34), 0 3px 6px rgba(0, 0, 0, 0.16);
+  transform: translateY(-1px);
+}
+
+.login-card button[mat-raised-button]:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(196, 106, 43, 0.22), 0 2px 4px rgba(0, 0, 0, 0.12);
+}
+
+.login-card button[mat-raised-button][disabled] {
+  background-color: #d3c6ba;
+  color: #f8f4f0;
+  box-shadow: none;
+}
+
+/* Spacing above button */
+button.full-width {
+  margin-top: 10px;
+}
+
+/* --------------------------------------------
+   MESSAGES
+-------------------------------------------- */
+
 .error {
-  margin-top: 12px;
-  color: #c62828;
+  margin-top: 14px;
+  color: var(--error);
+  font-size: 0.9rem;
 }
 
 .success {
   margin-bottom: 16px;
-  color: #2e7d32;
+  color: var(--secondary);
+  font-size: 0.9rem;
+}
+
+/* --------------------------------------------
+   DESKTOP
+-------------------------------------------- */
+
+@media (min-width: 768px) {
+  .login-card {
+    padding: 34px 34px 38px;
+  }
+
+  .login-card h2 {
+    font-size: 1.55rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
 }

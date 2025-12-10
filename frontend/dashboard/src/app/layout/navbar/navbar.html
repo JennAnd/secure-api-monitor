@@ -1,4 +1,7 @@
 <mat-toolbar color="primary" class="navbar">
+  <!-- Hamburger (visible only on mobile) -->
+  <button class="menu-toggle" (click)="sidebarToggle.emit()">☰</button>
+
   <span class="brand">Secure API Monitor</span>
 
   <span class="spacer"></span>

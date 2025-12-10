@@ -1,2 +1,26 @@
-<!-- Root view for the entire application -->
-<router-outlet></router-outlet>
+<!-- NAVBAR — only visible on dashboard pages -->
+<app-navbar *ngIf="isDashboardRoute()" (sidebarToggle)="toggleSidebar()"> </app-navbar>
+
+<!-- MOBILE OVERLAY — only active on dashboard -->
+<div
+  *ngIf="isDashboardRoute()"
+  class="sidebar-overlay"
+  [class.visible]="isSidebarOpen()"
+  (click)="isSidebarOpen.set(false)"
+></div>
+
+<!-- DASHBOARD LAYOUT (sidebar + content) -->
+<div class="layout" *ngIf="isDashboardRoute()">
+  <!-- SIDEBAR -->
+  <nav class="sidebar" [class.open]="isSidebarOpen()">
+    <app-sidebar></app-sidebar>
+  </nav>
+
+  <!-- MAIN ROUTED CONTENT -->
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+<!-- LOGIN / REGISTER / OTHER pages (no layout) -->
+<router-outlet *ngIf="!isDashboardRoute()"></router-outlet>
