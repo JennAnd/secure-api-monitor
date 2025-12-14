@@ -16,18 +16,10 @@ using Microsoft.OpenApi.Models;
 // Load application configuration and build the service container
 var builder = WebApplication.CreateBuilder(args);
 
-// Load JWT settings from configuration.
-var jwtSection = builder.Configuration.GetSection("Jwt");
-var jwtSettings = jwtSection.Get<JwtSettings>();
+builder.Configuration.AddEnvironmentVariables();
 
-// Simple safety check so the app fails early if configuration is missing.
-if (jwtSettings is null)
-{
-    throw new InvalidOperationException("JWT settings are missing in configuration.");
-}
-
-builder.Services.Configure<JwtSettings>(jwtSection);
-
+builder.Services.Configure<JwtSettings>(
+    builder.Configuration.GetSection("Jwt"));
 
 // Get the connection string from appsettings.Development.json
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -85,12 +77,14 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:4200")
+        policy
+              .AllowAnyOrigin()
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
 });
 
+// Apply global rate limiting per IP address
 builder.Services.AddRateLimiter(options =>
 {
     // Return 429 when a client is rate limited
@@ -118,13 +112,25 @@ builder.Services.AddRateLimiter(options =>
 });
 
 // Configure JWT-based authentication.
+// JWT settings are read from environment variables in Azure
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 })
+
 .AddJwtBearer(options =>
 {
+    // Read JWT settings at runtime to support Azure environment variables
+    var jwtSettings = builder.Configuration
+        .GetSection("Jwt")
+        .Get<JwtSettings>();
+
+    if (jwtSettings is null)
+    {
+        throw new InvalidOperationException("JWT settings are missing.");
+    }
+
     options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuer = true,
@@ -133,9 +139,11 @@ builder.Services.AddAuthentication(options =>
         ValidateLifetime = true,
         ValidIssuer = jwtSettings.Issuer,
         ValidAudience = jwtSettings.Audience,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key))
+        IssuerSigningKey = new SymmetricSecurityKey(
+            Encoding.UTF8.GetBytes(jwtSettings.Key))
     };
 });
+
 
 // Makes PasswordHasher available to controllers
 builder.Services.AddSingleton<PasswordHasher>();
