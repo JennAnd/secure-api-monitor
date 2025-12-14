@@ -18,18 +18,14 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: Restore dependencies
-        run: dotnet restore
-        working-directory: backend
+      - name: Restore
+        run: dotnet restore backend/SecureApiMonitor.Api/SecureApiMonitor.Api.csproj
 
       - name: Build
-        run: dotnet build --configuration Release --no-restore
-        working-directory: backend
+        run: dotnet build backend/SecureApiMonitor.Api/SecureApiMonitor.Api.csproj --configuration Release --no-restore
 
       - name: Publish
-        run: dotnet publish --configuration Release --output ${{ env.DOTNET_ROOT }}/myapp
-        working-directory: backend
-
+        run: dotnet publish backend/SecureApiMonitor.Api/SecureApiMonitor.Api.csproj --configuration Release --output ${{ env.DOTNET_ROOT }}/myapp
 
       - name: Deploy to Azure App Service
         uses: azure/webapps-deploy@v3
