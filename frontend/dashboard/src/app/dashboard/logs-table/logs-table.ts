@@ -20,38 +20,27 @@ export interface ApiLog {
 @Component({
   selector: 'app-logs-table',
   standalone: true,
-  imports: [CommonModule,
-    MatTableModule,
-    FormsModule
-  ],
+  imports: [CommonModule, MatTableModule, FormsModule],
   templateUrl: './logs-table.html',
   styleUrls: ['./logs-table.css'],
 })
 export class LogsTableComponent implements OnInit {
   // Columns to show in the Angular Material table
-  displayedColumns: string[] = [
-    'timestamp',
-    'method',
-    'endpoint',
-    'statusCode',
-    'responseTimeMs',
-  ];
+  displayedColumns: string[] = ['timestamp', 'method', 'endpoint', 'statusCode', 'responseTimeMs'];
 
   // All log rows loaded from the backend
   logs: ApiLog[] = [];
-    // Logs that are actually shown in the table (after filtering)
+  // Logs that are actually shown in the table (after filtering)
   filteredLogs: ApiLog[] = [];
 
-
-    // Filter values bound to the filter inputs in the template
+  // Filter values bound to the filter inputs in the template
   endpointFilter = '';
   statusFilter = '';
   dateFrom: string | null = null;
   dateTo: string | null = null;
 
-     // Applies endpoint, status and date filters to logs
+  // Applies endpoint, status and date filters to logs
   applyFilters(): void {
-    console.log('🔍 applyFilters() called. logs.length =', this.logs.length);
     this.filteredLogs = this.logs.filter((log) => {
       // Filter by endpoint
       if (this.endpointFilter) {
@@ -64,34 +53,36 @@ export class LogsTableComponent implements OnInit {
       }
 
       // Filter by status code (exact number match)
-     if (this.statusFilter !== null && this.statusFilter !== undefined && this.statusFilter !== '') {
-  const statusAsNumber = Number(this.statusFilter);
-  if (!Number.isNaN(statusAsNumber) && log.statusCode !== statusAsNumber) {
-    return false;
-  }
-}
+      if (
+        this.statusFilter !== null &&
+        this.statusFilter !== undefined &&
+        this.statusFilter !== ''
+      ) {
+        const statusAsNumber = Number(this.statusFilter);
+        if (!Number.isNaN(statusAsNumber) && log.statusCode !== statusAsNumber) {
+          return false;
+        }
+      }
 
       // Filter by date range (compare date part only)
-if (this.dateFrom || this.dateTo) {
+      if (this.dateFrom || this.dateTo) {
+        if (!log.timestamp) {
+          return false;
+        }
 
-  if (!log.timestamp) {
-    return false;
-  }
+        const logDate = log.timestamp.slice(0, 10); // "2025-12-04"
 
-  const logDate = log.timestamp.slice(0, 10); // "2025-12-04"
+        if (this.dateFrom && logDate < this.dateFrom) {
+          return false;
+        }
 
-  if (this.dateFrom && logDate < this.dateFrom) {
-    return false;
-  }
-
-  if (this.dateTo && logDate > this.dateTo) {
-    return false;
-  }
-}
+        if (this.dateTo && logDate > this.dateTo) {
+          return false;
+        }
+      }
 
       return true;
     });
-    console.log('✅ filteredLogs.length =', this.filteredLogs.length);
   }
 
   // Loading + error flags for the UI
@@ -101,7 +92,10 @@ if (this.dateFrom || this.dateTo) {
   // Base URL for the backend API
   private readonly apiBaseUrl = 'http://localhost:5062/api';
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService,
+  ) {}
 
   ngOnInit(): void {
     this.loadLogs();
@@ -120,19 +114,16 @@ if (this.dateFrom || this.dateTo) {
       headers = headers.set('Authorization', `Bearer ${token}`);
     }
 
-    this.http
-      .get<ApiLog[]>(`${this.apiBaseUrl}/logs`, { headers })
-      .subscribe({
-        next: (data) => {
-          console.log('✅ Logs loaded from API:', data);
-          this.logs = data;
-          this.isLoading = false;
-          this.applyFilters(); 
-        },
-        error: () => {
-          this.errorMessage = 'Failed to load logs.';
-          this.isLoading = false;
-        },
-      });
+    this.http.get<ApiLog[]>(`${this.apiBaseUrl}/logs`, { headers }).subscribe({
+      next: (data) => {
+        this.logs = data;
+        this.isLoading = false;
+        this.applyFilters();
+      },
+      error: () => {
+        this.errorMessage = 'Failed to load logs.';
+        this.isLoading = false;
+      },
+    });
   }
 }
