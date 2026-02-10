@@ -9,9 +9,16 @@
   align-items: center;
   padding: 0 20px;
 
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.03);
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.06),
+    0 1px 2px rgba(0, 0, 0, 0.03);
 
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
 }
 
 /* -------------------------------------------
@@ -41,7 +48,9 @@
   border-radius: 8px;
   padding: 4px 14px;
 
-  transition: background 0.2s ease, color 0.2s ease;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
 }
 
 .navbar button[mat-button]:hover {
@@ -49,10 +58,10 @@
 }
 
 /* Active state */
-.navbar button.active {
+.navbar button.active-link {
   background: var(--primary);
   color: white;
-  font-weight: 600;
+  font-weight: 600 !important;
   box-shadow: 0 2px 6px rgba(196, 106, 43, 0.25);
 }
 
