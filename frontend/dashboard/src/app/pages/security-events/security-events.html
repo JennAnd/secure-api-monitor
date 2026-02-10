@@ -1,1 +1,29 @@
-<p>security-events works!</p>
+<!-- Loading -->
+<div *ngIf="isLoading" class="loading">Loading security analysis...</div>
+
+<!-- Error -->
+<div *ngIf="!isLoading && errorMessage" class="error">
+  {{ errorMessage }}
+</div>
+
+<!-- No events -->
+<div *ngIf="!isLoading && !errorMessage && events.length === 0" class="empty">
+  No suspicious activity detected
+</div>
+
+<!-- Events -->
+<div class="events" *ngIf="events.length > 0">
+  <div class="event-card" *ngFor="let e of events">
+    <div class="event-header">
+      <span class="badge danger">{{ e.type }}</span>
+      <span class="ip">{{ e.ip }}</span>
+    </div>
+
+    <div class="event-body">
+      <p>{{ e.description }}</p>
+      <div class="meta">
+        Attempts: <strong>{{ e.count }}</strong>
+      </div>
+    </div>
+  </div>
+</div>
