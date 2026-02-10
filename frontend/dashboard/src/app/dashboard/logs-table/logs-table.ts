@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
 import { AuthService } from '../../auth/auth.service';
 import { FormsModule } from '@angular/forms';
+import { interval, Subscription } from 'rxjs';
 
 // Represents one log entry returned from the backend API
 export interface ApiLog {
@@ -24,7 +25,7 @@ export interface ApiLog {
   templateUrl: './logs-table.html',
   styleUrls: ['./logs-table.css'],
 })
-export class LogsTableComponent implements OnInit {
+export class LogsTableComponent implements OnInit, OnDestroy {
   // Columns to show in the Angular Material table
   displayedColumns: string[] = ['timestamp', 'method', 'endpoint', 'statusCode', 'responseTimeMs'];
 
@@ -89,6 +90,9 @@ export class LogsTableComponent implements OnInit {
   isLoading = false;
   errorMessage = '';
 
+  // Holds the polling subscription so we can stop it later
+  private pollingSub?: Subscription;
+
   // Base URL for the backend API
   private readonly apiBaseUrl = 'http://localhost:5062/api';
 
@@ -98,7 +102,13 @@ export class LogsTableComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // Load immediately when page opens
     this.loadLogs();
+
+    // Then reload logs every 10 seconds
+    this.pollingSub = interval(10000).subscribe(() => {
+      this.loadLogs();
+    });
   }
 
   // Loads all logs from the /api/logs endpoint using the JWT token
@@ -125,5 +135,10 @@ export class LogsTableComponent implements OnInit {
         this.isLoading = false;
       },
     });
+  }
+
+  // Stop polling when user leaves the page to prevent memory leaks
+  ngOnDestroy(): void {
+    this.pollingSub?.unsubscribe();
   }
 }

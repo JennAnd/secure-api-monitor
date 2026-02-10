@@ -15,17 +15,20 @@ public class RequestLoggingMiddleware
 
     public async Task InvokeAsync(HttpContext context, ApplicationDbContext db)
     {
-            // Ignore framework / template noise endpoints
+            // Only log real monitored API endpoints
             var path = context.Request.Path.Value?.ToLower() ?? "";
 
-            if (path.StartsWith("/weatherforecast") ||
-                path.StartsWith("/favicon") ||
-                path.StartsWith("/swagger"))
-            {
-                await _next(context);
-                return;
-            }
-            
+            // Skip internal monitoring endpoints (dashboard polling)
+                if (path.StartsWith("/api/logs") ||
+                    path.StartsWith("/api/stats") ||
+                    path.StartsWith("/swagger") ||
+                    path.StartsWith("/favicon"))
+                {
+                    await _next(context);
+                    return;
+                }
+
+
         // Track how long the request takes
         var stopwatch = new Stopwatch();
         stopwatch.Start();
