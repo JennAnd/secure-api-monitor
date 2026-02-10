@@ -12,8 +12,8 @@
 <!-- DASHBOARD LAYOUT (sidebar + content) -->
 <div class="layout" *ngIf="isDashboardRoute()">
   <!-- SIDEBAR -->
-  <nav class="sidebar" [class.open]="isSidebarOpen()">
-    <app-sidebar></app-sidebar>
+  <nav>
+    <app-sidebar [open]="isSidebarOpen()" (navigate)="isSidebarOpen.set(false)"></app-sidebar>
   </nav>
 
   <!-- MAIN ROUTED CONTENT -->

@@ -14,7 +14,9 @@
   border-right: 1px solid var(--border-subtle);
   padding: 20px 18px;
 
-  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.12), 1px 0 2px rgba(0, 0, 0, 0.04);
+  box-shadow:
+    2px 0 12px rgba(0, 0, 0, 0.12),
+    1px 0 2px rgba(0, 0, 0, 0.04);
 
   transition: left 0.28s ease;
   z-index: 1000;
@@ -60,7 +62,10 @@
   cursor: pointer;
   opacity: 0.85;
 
-  transition: background 0.18s ease, opacity 0.18s ease;
+  transition:
+    background 0.18s ease,
+    opacity 0.18s ease;
+  text-decoration: none;
 }
 
 /* Hover effect */

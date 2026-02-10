@@ -1,19 +1,39 @@
-<nav class="sidebar">
+<nav class="sidebar" [class.open]="open">
   <h3 class="sidebar-title">VIEWS</h3>
 
   <ul class="sidebar-list">
+    <!-- Overview -->
     <li class="sidebar-item">
-      <span class="sidebar-link">Overview</span>
+      <a
+        routerLink="/dashboard"
+        (click)="onNavigate()"
+        [class.active]="router.url === '/dashboard'"
+        class="sidebar-link"
+      >
+        Overview
+      </a>
     </li>
+
+    <!-- API Logs -->
     <li class="sidebar-item">
-      <span class="sidebar-link">API Logs</span>
+      <a
+        routerLink="/dashboard/logs"
+        (click)="onNavigate()"
+        [class.active]="router.url.startsWith('/dashboard/logs')"
+        class="sidebar-link"
+      >
+        API Logs
+      </a>
     </li>
+
     <li class="sidebar-item">
       <span class="sidebar-link">Error Statistics</span>
     </li>
+
     <li class="sidebar-item">
       <span class="sidebar-link">Security Events</span>
     </li>
+
     <li class="sidebar-item">
       <span class="sidebar-link">Settings</span>
     </li>

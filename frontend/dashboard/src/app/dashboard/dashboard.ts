@@ -1,18 +1,13 @@
 import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../layout/navbar/navbar';
 import { SidebarComponent } from '../layout/sidebar/sidebar';
-import { LogsTableComponent } from './logs-table/logs-table';
-import { StatsChartsComponent } from './stats-charts/stats-charts';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule,
-     NavbarComponent,
-     SidebarComponent,
-     LogsTableComponent,
-     StatsChartsComponent],
+  imports: [RouterOutlet, CommonModule, NavbarComponent, SidebarComponent],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.css'],
 })

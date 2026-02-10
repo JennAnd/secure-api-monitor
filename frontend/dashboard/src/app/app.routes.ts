@@ -3,6 +3,8 @@ import { LoginComponent } from './auth/login/login';
 import { DashboardComponent } from './dashboard/dashboard';
 import { RegisterComponent } from './auth/register/register';
 import { authGuard } from './auth/auth.guard';
+import { Logs } from './pages/logs/logs';
+import { Overview } from './pages/overview/overview';
 
 // All routes for the application
 export const routes: Routes = [
@@ -13,7 +15,18 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
 
   // Main dashboard page
-  { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard] },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivateChild: [authGuard],
+    children: [
+      {
+        path: '',
+        component: Overview,
+      },
+      { path: 'logs', component: Logs },
+    ],
+  },
 
   // Redirect the root URL to /login
   { path: '', redirectTo: 'login', pathMatch: 'full' },
