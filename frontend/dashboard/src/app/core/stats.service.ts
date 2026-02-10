@@ -16,6 +16,9 @@ export interface EndpointStats {
   requestCount: number;
   errorCount: number;
   averageResponseTimeMs: number;
+
+  // Calculated only in frontend (not returned by backend)
+  errorRate?: number;
 }
 
 @Injectable({

@@ -1,1 +1,45 @@
-<p>error-stats works!</p>
+<!-- Loading -->
+<div *ngIf="isLoading" class="state-message">Loading error statistics...</div>
+
+<!-- Error -->
+<div *ngIf="!isLoading && errorMessage" class="state-message error">
+  {{ errorMessage }}
+</div>
+
+<!-- No errors -->
+<div *ngIf="!isLoading && !errorMessage && endpoints.length === 0" class="state-message">
+  No errors detected 🎉
+</div>
+
+<!-- Error table -->
+<div *ngIf="!isLoading && endpoints.length > 0" class="error-stats-wrapper">
+  <div class="error-header">
+    <h2>Error Statistics</h2>
+    <p>Endpoints ranked by failure rate</p>
+  </div>
+
+  <div class="error-list">
+    <div class="error-card" *ngFor="let e of endpoints">
+      <div class="endpoint">
+        {{ e.endpoint }}
+      </div>
+
+      <div class="metrics">
+        <div class="metric">
+          <span class="label">Errors</span>
+          <span class="value">{{ e.errorCount }}</span>
+        </div>
+
+        <div class="metric">
+          <span class="label">Requests</span>
+          <span class="value">{{ e.requestCount }}</span>
+        </div>
+
+        <div class="metric highlight">
+          <span class="label">Error rate</span>
+          <span class="value">{{ e.errorRate }}%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

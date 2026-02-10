@@ -1,0 +1,115 @@
+/* --------------------------------------------
+   ERROR STATES
+-------------------------------------------- */
+
+.state-message {
+  padding: 18px;
+  color: var(--text-muted);
+}
+
+.state-message.error {
+  color: var(--error);
+}
+
+/* Wrapper */
+.error-stats-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Header section */
+.error-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--text-main);
+}
+
+.error-header p {
+  margin: 6px 0 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* Cards */
+.error-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.error-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+}
+
+.endpoint {
+  font-weight: 600;
+  word-break: break-word;
+}
+
+/* Metrics */
+.metrics {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.metric .label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.metric .value {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.metric.highlight .value {
+  color: var(--primary);
+}
+
+/* --------------------------------------------
+   TABLET LAYOUT
+-------------------------------------------- */
+@media (min-width: 600px) {
+  .error-card {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .metrics {
+    width: 60%;
+    justify-content: space-around;
+  }
+}
+
+/* --------------------------------------------
+   DESKTOP LAYOUT
+-------------------------------------------- */
+@media (min-width: 1024px) {
+  .error-list {
+    gap: 18px;
+  }
+
+  .error-card {
+    padding: 20px 24px;
+  }
+
+  .endpoint {
+    font-size: 1.05rem;
+  }
+}
