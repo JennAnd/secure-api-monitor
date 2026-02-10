@@ -5,6 +5,7 @@ import { MatTableModule } from '@angular/material/table';
 import { AuthService } from '../../auth/auth.service';
 import { FormsModule } from '@angular/forms';
 import { interval, Subscription } from 'rxjs';
+import { SettingsService } from '../../core/settings.service';
 
 // Represents one log entry returned from the backend API
 export interface ApiLog {
@@ -99,16 +100,21 @@ export class LogsTableComponent implements OnInit, OnDestroy {
   constructor(
     private http: HttpClient,
     private authService: AuthService,
+    private settingsService: SettingsService,
   ) {}
 
   ngOnInit(): void {
-    // Load immediately when page opens
+    // Always load once when opening page
     this.loadLogs();
 
-    // Then reload logs every 10 seconds
-    this.pollingSub = interval(10000).subscribe(() => {
-      this.loadLogs();
-    });
+    const settings = this.settingsService.current;
+
+    // Start polling only if enabled in settings
+    if (settings.autoRefresh) {
+      this.pollingSub = interval(settings.refreshSeconds * 1000).subscribe(() => {
+        this.loadLogs();
+      });
+    }
   }
 
   // Loads all logs from the /api/logs endpoint using the JWT token

@@ -27,15 +27,36 @@
     </li>
 
     <li class="sidebar-item">
-      <span class="sidebar-link">Error Statistics</span>
+      <a
+        routerLink="/dashboard/errors"
+        (click)="onNavigate()"
+        [class.active]="router.url.startsWith('/dashboard/errors')"
+        class="sidebar-link"
+      >
+        Error Statistics
+      </a>
     </li>
 
     <li class="sidebar-item">
-      <span class="sidebar-link">Security Events</span>
+      <a
+        routerLink="/dashboard/security"
+        (click)="onNavigate()"
+        [class.active]="router.url.startsWith('/dashboard/security')"
+        class="sidebar-link"
+      >
+        Security Events
+      </a>
     </li>
 
     <li class="sidebar-item">
-      <span class="sidebar-link">Settings</span>
+      <a
+        routerLink="/dashboard/settings"
+        (click)="onNavigate()"
+        [class.active]="router.url.startsWith('/dashboard/settings')"
+        class="sidebar-link"
+      >
+        Settings
+      </a>
     </li>
   </ul>
 </nav>

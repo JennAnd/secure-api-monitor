@@ -1,0 +1,31 @@
+<div class="settings-wrapper">
+  <h2>Settings</h2>
+
+  <!-- Account -->
+  <div class="settings-card">
+    <h3>Account</h3>
+    <p><strong>User:</strong> {{ username }}</p>
+    <button (click)="logout()">Logout</button>
+  </div>
+
+  <!-- Preferences -->
+  <div class="settings-card">
+    <h3>Preferences</h3>
+
+    <label>
+      <input type="checkbox" [(ngModel)]="autoRefresh" />
+      Enable auto refresh
+    </label>
+
+    <label>
+      Refresh interval (seconds):
+      <select [(ngModel)]="refreshSeconds">
+        <option [value]="5">5</option>
+        <option [value]="10">10</option>
+        <option [value]="30">30</option>
+      </select>
+    </label>
+
+    <button (click)="save()">Save</button>
+  </div>
+</div>

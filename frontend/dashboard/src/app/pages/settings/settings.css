@@ -1,0 +1,84 @@
+/* Page layout */
+.settings-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Cards — same visual style as dashboard sections */
+.settings-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  padding: 20px 22px;
+  max-width: 460px;
+
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.05),
+    0 3px 6px rgba(0, 0, 0, 0.04);
+}
+
+/* Titles */
+.settings-card h3 {
+  margin: 0 0 12px 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+/* Labels */
+.settings-card label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+  color: var(--text-main);
+  font-size: 0.95rem;
+}
+
+/* Select */
+.settings-card select {
+  margin-left: auto;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border-subtle);
+  background: white;
+}
+
+/* Buttons — same feeling as rest of app */
+.settings-card button {
+  margin-top: 16px;
+  padding: 9px 16px;
+  border-radius: 10px;
+  border: none;
+  background: var(--primary);
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease,
+    background 0.12s ease;
+}
+
+/* Hover */
+.settings-card button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(196, 106, 43, 0.25);
+}
+
+/* Click press effect */
+.settings-card button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(196, 106, 43, 0.25);
+}
+
+/* Logout button slightly different tone */
+.settings-card button:last-child {
+  background: var(--secondary);
+}
+
+.settings-card button:last-child:hover {
+  box-shadow: 0 6px 14px rgba(138, 79, 45, 0.25);
+}

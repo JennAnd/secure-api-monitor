@@ -5,6 +5,9 @@ import { RegisterComponent } from './auth/register/register';
 import { authGuard } from './auth/auth.guard';
 import { Logs } from './pages/logs/logs';
 import { Overview } from './pages/overview/overview';
+import { ErrorStats } from './pages/error-stats/error-stats';
+import { SecurityEvents } from './pages/security-events/security-events';
+import { Settings } from './pages/settings/settings';
 
 // All routes for the application
 export const routes: Routes = [
@@ -25,6 +28,9 @@ export const routes: Routes = [
         component: Overview,
       },
       { path: 'logs', component: Logs },
+      { path: 'errors', component: ErrorStats },
+      { path: 'security', component: SecurityEvents },
+      { path: 'settings', component: Settings },
     ],
   },
 
