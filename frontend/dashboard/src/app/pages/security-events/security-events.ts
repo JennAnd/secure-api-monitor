@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../../auth/auth.service';
 
+// Represents one API request log
 interface ApiLog {
   id: number;
   timestamp: string;
@@ -15,12 +16,13 @@ interface ApiLog {
   errorMessage: string | null;
 }
 
-// Represents a detected security issue
+// Represents a detected security event
 interface SecurityEvent {
   type: string;
   description: string;
   ip: string;
   count: number;
+  endpoint?: string;
 }
 
 @Component({
@@ -50,8 +52,10 @@ export class SecurityEvents implements OnInit {
     });
   }
 
+  // Load logs and detect security events
   private load(): void {
     this.isLoading = true;
+    this.errorMessage = '';
     this.events = []; // clear old detections
 
     const token = this.auth.getToken();
@@ -63,7 +67,13 @@ export class SecurityEvents implements OnInit {
 
     this.http.get<ApiLog[]>(`${this.apiBaseUrl}/logs`, { headers }).subscribe({
       next: (logs) => {
-        this.detectBruteForce(logs);
+        // Only use logs from the last 24 hours for security event detection
+        const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+        const recentLogs = logs.filter((log) => {
+          return new Date(log.timestamp) >= twentyFourHoursAgo;
+        });
+        this.detectBruteForce(recentLogs);
+        this.detectErrorSpike(recentLogs);
         this.isLoading = false;
       },
       error: () => {
@@ -73,7 +83,7 @@ export class SecurityEvents implements OnInit {
     });
   }
 
-  // Detect repeated failed login attempts
+  // Detect repeated failed login attempts from the same IP
   private detectBruteForce(logs: ApiLog[]): void {
     const failedLogins = logs.filter(
       (l) => l.endpoint === '/api/auth/login' && l.statusCode === 401,
@@ -93,6 +103,44 @@ export class SecurityEvents implements OnInit {
           ip,
           count: grouped[ip],
         });
+      }
+    }
+  }
+  // Detect endpoints with a high percentage of failed requests
+  private detectErrorSpike(logs: ApiLog[]): void {
+    const grouped: Record<string, { total: number; errors: number }> = {};
+
+    for (const log of logs) {
+      const endpoint = log.endpoint;
+
+      if (!grouped[endpoint]) {
+        grouped[endpoint] = { total: 0, errors: 0 };
+      }
+
+      grouped[endpoint].total++;
+
+      if (log.statusCode >= 400) {
+        grouped[endpoint].errors++;
+      }
+    }
+
+    for (const endpoint in grouped) {
+      const total = grouped[endpoint].total;
+      const errors = grouped[endpoint].errors;
+
+      // Only flag endpoints with enough traffic to matter
+      if (total >= 5) {
+        const errorRate = (errors / total) * 100;
+
+        if (errorRate >= 30) {
+          this.events.push({
+            type: 'High error rate',
+            description: 'Unusually high number of failed requests detected',
+            ip: '-',
+            endpoint,
+            count: errors,
+          });
+        }
       }
     }
   }

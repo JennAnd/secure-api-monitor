@@ -3,7 +3,8 @@ using SecureApiMonitor.Api.Data;
 using SecureApiMonitor.Api.Models;
 using System.Diagnostics;
 
-// Middleware that logs every incoming request and saves it to the database
+
+// Middleware that logs selected API requests and saves them to the database
 public class RequestLoggingMiddleware
 {
     private readonly RequestDelegate _next;
@@ -15,19 +16,29 @@ public class RequestLoggingMiddleware
 
     public async Task InvokeAsync(HttpContext context, ApplicationDbContext db)
     {
-            // Only log real monitored API endpoints
+            // Only log selected API endpoints we want to monitor
             var path = context.Request.Path.Value?.ToLower() ?? "";
 
-            // Skip internal monitoring endpoints (dashboard polling)
-                if (path.StartsWith("/api/logs") ||
-                    path.StartsWith("/api/stats") ||
-                    path.StartsWith("/swagger") ||
-                    path.StartsWith("/favicon"))
-                {
-                    await _next(context);
-                    return;
-                }
+            // Ignore browser preflight & automatic framework requests
+            if (context.Request.Method == "OPTIONS" ||
+                    context.Request.Method == "HEAD")
+            {
+                await _next(context);
+                return;
+            }
 
+            // Log important API endpoints for monitoring and security analysis
+            var isMonitoredEndpoint =
+                path.StartsWith("/api/secure") ||
+                path == "/api/auth/login" ||
+                path == "/api/auth/register";
+
+            // Skip requests we do not want to monitor
+            if (!isMonitoredEndpoint)
+            {
+                await _next(context);
+                return;
+            }
 
         // Track how long the request takes
         var stopwatch = new Stopwatch();
