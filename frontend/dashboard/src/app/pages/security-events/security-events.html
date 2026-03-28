@@ -21,6 +21,10 @@
 
     <div class="event-body">
       <p>{{ e.description }}</p>
+      <!-- Show endpoint when the event is related to one-->
+      <div class="meta" *ngIf="e.endpoint">
+        Endpoint: <strong>{{ e.endpoint }}</strong>
+      </div>
       <div class="meta">
         Attempts: <strong>{{ e.count }}</strong>
       </div>

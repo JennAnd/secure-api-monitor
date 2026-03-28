@@ -16,7 +16,7 @@ public class RequestLoggingMiddleware
 
     public async Task InvokeAsync(HttpContext context, ApplicationDbContext db)
     {
-            // Only log selected API endpoints we want to monitor
+            // Read the request path
             var path = context.Request.Path.Value?.ToLower() ?? "";
 
             // Ignore browser preflight & automatic framework requests
@@ -27,18 +27,11 @@ public class RequestLoggingMiddleware
                 return;
             }
 
-            // Log important API endpoints for monitoring and security analysis
+            // Mark known endpoints we want to monitor
             var isMonitoredEndpoint =
                 path.StartsWith("/api/secure") ||
                 path == "/api/auth/login" ||
                 path == "/api/auth/register";
-
-            // Skip requests we do not want to monitor
-            if (!isMonitoredEndpoint)
-            {
-                await _next(context);
-                return;
-            }
 
         // Track how long the request takes
         var stopwatch = new Stopwatch();
@@ -68,21 +61,26 @@ public class RequestLoggingMiddleware
         {
             stopwatch.Stop();
 
-            var log = new ApiRequestLog
+            // Save the request if it is a monitored endpoint
+            // or if it returned 404 (unknown endpoint)
+            if (isMonitoredEndpoint || statusCode == 404)
             {
-                Timestamp = DateTime.UtcNow,
-                IpAddress = ip,
-                Method = method,
-                Endpoint = endpoint,
-                StatusCode = statusCode,
-                ResponseTimeMs = (int)stopwatch.ElapsedMilliseconds,
-                ErrorMessage = error
-            };
+                    var log = new ApiRequestLog
+                    {
+                        Timestamp = DateTime.UtcNow,
+                        IpAddress = ip,
+                        Method = method,
+                        Endpoint = endpoint,
+                        StatusCode = statusCode,
+                        ResponseTimeMs = (int)stopwatch.ElapsedMilliseconds,
+                        ErrorMessage = error
+                    };
 
-            // Save log entry
-            db.ApiRequestLogs.Add(log);
-            await db.SaveChangesAsync();
+                    // Save log entry
+                    db.ApiRequestLogs.Add(log);
+                    await db.SaveChangesAsync();
+                 }
+             }
         }
     }
-}
 

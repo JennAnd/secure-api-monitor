@@ -74,6 +74,7 @@ export class SecurityEvents implements OnInit {
         });
         this.detectBruteForce(recentLogs);
         this.detectErrorSpike(recentLogs);
+        this.detectUnknownEndpoint(recentLogs);
         this.isLoading = false;
       },
       error: () => {
@@ -108,9 +109,10 @@ export class SecurityEvents implements OnInit {
   }
   // Detect endpoints with a high percentage of failed requests
   private detectErrorSpike(logs: ApiLog[]): void {
+    const filteredLogs = logs.filter((log) => log.statusCode !== 404);
     const grouped: Record<string, { total: number; errors: number }> = {};
 
-    for (const log of logs) {
+    for (const log of filteredLogs) {
       const endpoint = log.endpoint;
 
       if (!grouped[endpoint]) {
@@ -141,6 +143,27 @@ export class SecurityEvents implements OnInit {
             count: errors,
           });
         }
+      }
+    }
+  }
+  // Detect repeated requests to unknown endpoints
+  private detectUnknownEndpoint(logs: ApiLog[]): void {
+    const notFoundLogs = logs.filter((log) => log.statusCode === 404);
+    const grouped: Record<string, number> = {};
+
+    for (const log of notFoundLogs) {
+      grouped[log.endpoint] = (grouped[log.endpoint] || 0) + 1;
+    }
+
+    for (const endpoint in grouped) {
+      if (grouped[endpoint] >= 3) {
+        this.events.push({
+          type: 'Unknown endpoint access',
+          description: 'Repeated requests to an unknown endpoint detected',
+          ip: '-',
+          endpoint,
+          count: grouped[endpoint],
+        });
       }
     }
   }
