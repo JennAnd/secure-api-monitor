@@ -75,6 +75,7 @@ export class SecurityEvents implements OnInit {
         this.detectBruteForce(recentLogs);
         this.detectErrorSpike(recentLogs);
         this.detectUnknownEndpoint(recentLogs);
+        this.detectSensitiveEndpointProbe(recentLogs);
         this.isLoading = false;
       },
       error: () => {
@@ -160,6 +161,34 @@ export class SecurityEvents implements OnInit {
         this.events.push({
           type: 'Unknown endpoint access',
           description: 'Repeated requests to an unknown endpoint detected',
+          ip: '-',
+          endpoint,
+          count: grouped[endpoint],
+        });
+      }
+    }
+  }
+
+  // Detect requests to sensitive or suspicious endpoints
+  private detectSensitiveEndpointProbe(logs: ApiLog[]): void {
+    const suspiciousKeywords = ['admin', 'config', 'debug', '.env', 'users'];
+    const grouped: Record<string, number> = {};
+
+    for (const log of logs) {
+      const endpoint = log.endpoint.toLowerCase();
+
+      const isSuspiciousPath = suspiciousKeywords.some((keyword) => endpoint.includes(keyword));
+
+      if (log.statusCode === 404 && isSuspiciousPath) {
+        grouped[log.endpoint] = (grouped[log.endpoint] || 0) + 1;
+      }
+    }
+
+    for (const endpoint in grouped) {
+      if (grouped[endpoint] >= 1) {
+        this.events.push({
+          type: 'Sensitive endpoint probe',
+          description: 'Request to a sensitive or suspicious endpoint detected',
           ip: '-',
           endpoint,
           count: grouped[endpoint],
