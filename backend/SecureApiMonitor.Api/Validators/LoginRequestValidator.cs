@@ -1,3 +1,5 @@
+// Validates user login input before authentication is attempted
+
 using FluentValidation;
 using SecureApiMonitor.Api.Auth.Requests;
 

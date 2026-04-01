@@ -15,9 +15,18 @@
           matInput
           [(ngModel)]="password"
           name="password"
-          type="password"
+          [type]="showPassword ? 'text' : 'password'"
           autocomplete="current-password"
         />
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          (click)="showPassword = !showPassword"
+          [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'"
+        >
+          <mat-icon>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
       </mat-form-field>
 
       <button
@@ -28,6 +37,16 @@
         [disabled]="isLoading"
       >
         {{ isLoading ? 'Logging in...' : 'Login' }}
+      </button>
+
+      <button
+        mat-button
+        class="full-width secondary-btn"
+        type="button"
+        (click)="goToRegister()"
+        [disabled]="isLoading"
+      >
+        Don’t have an account? Register here
       </button>
     </form>
 

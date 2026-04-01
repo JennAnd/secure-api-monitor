@@ -15,10 +15,33 @@
           matInput
           [(ngModel)]="password"
           name="password"
-          type="password"
+          [type]="showPassword ? 'text' : 'password'"
           autocomplete="new-password"
         />
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          (click)="showPassword = !showPassword"
+          [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'"
+        >
+          <mat-icon>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
       </mat-form-field>
+
+      <div class="rules">
+        <p><strong>Username rules:</strong></p>
+        <p>• 5 to 30 characters</p>
+        <p>• Must start with a letter</p>
+        <p>• Letters, numbers, and underscore only</p>
+
+        <p><strong>Password rules:</strong></p>
+        <p>• At least 8 characters</p>
+        <p>• One uppercase letter</p>
+        <p>• One lowercase letter</p>
+        <p>• One number</p>
+        <p>• One special character</p>
+      </div>
 
       <!-- Create account button -->
       <button

@@ -1,16 +1,27 @@
+// This component handles user registration and validates username
+// and password rules before sending the request to the backend
+
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatCardModule, MatButtonModule, MatInputModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    MatInputModule,
+  ],
   templateUrl: './register.html',
   styleUrl: './register.css',
 })
@@ -19,11 +30,17 @@ export class RegisterComponent {
   username = '';
   password = '';
 
+  // Controls whether the password is visible or hidden
+  showPassword = false;
+
   // UI state flags
   isLoading = false;
   errorMessage = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+  ) {}
 
   // Called when the user presses the create account button
   onRegister(): void {
@@ -32,6 +49,37 @@ export class RegisterComponent {
     // Check that both fields are filled
     if (!this.username || !this.password) {
       this.errorMessage = 'Please enter both username and password.';
+      return;
+    }
+
+    // Check username format
+    const usernamePattern = /^[A-Za-z][A-Za-z0-9_]*$/;
+
+    if (this.username.length < 5 || this.username.length > 30) {
+      this.errorMessage = 'Username must be between 5 and 30 characters long.';
+      return;
+    }
+
+    if (!usernamePattern.test(this.username)) {
+      this.errorMessage =
+        'Username must start with a letter and can only contain letters, numbers, and underscore.';
+      return;
+    }
+
+    // Check password strength
+    const hasUppercase = /[A-Z]/.test(this.password);
+    const hasLowercase = /[a-z]/.test(this.password);
+    const hasNumber = /\d/.test(this.password);
+    const hasSpecial = /[^\w\s]/.test(this.password);
+
+    if (this.password.length < 8) {
+      this.errorMessage = 'Password must be at least 8 characters long.';
+      return;
+    }
+
+    if (!hasUppercase || !hasLowercase || !hasNumber || !hasSpecial) {
+      this.errorMessage =
+        'Password must contain uppercase, lowercase, number, and special character.';
       return;
     }
 

@@ -22,7 +22,9 @@
   background: var(--card-bg);
   border: 1px solid var(--border-subtle);
 
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.05),
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.08),
+    0 4px 12px rgba(0, 0, 0, 0.05),
     0 1px 2px rgba(0, 0, 0, 0.03);
 }
 
@@ -59,7 +61,10 @@ mat-form-field.full-width {
 .mdc-text-field {
   background: #ffffff;
   border-radius: 10px !important;
-  transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 .mdc-notched-outline__leading,
@@ -110,20 +115,29 @@ mat-form-field.full-width {
   padding: 12px 0;
   font-size: 1rem;
 
-  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+  transition:
+    background 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.15s ease;
 
-  box-shadow: 0 6px 16px rgba(196, 106, 43, 0.28), 0 2px 4px rgba(196, 106, 43, 0.18);
+  box-shadow:
+    0 6px 16px rgba(196, 106, 43, 0.28),
+    0 2px 4px rgba(196, 106, 43, 0.18);
 }
 
 .login-card button[mat-raised-button]:hover {
   background: linear-gradient(to bottom right, var(--secondary), #7a3f22);
-  box-shadow: 0 10px 24px rgba(196, 106, 43, 0.34), 0 3px 6px rgba(0, 0, 0, 0.16);
+  box-shadow:
+    0 10px 24px rgba(196, 106, 43, 0.34),
+    0 3px 6px rgba(0, 0, 0, 0.16);
   transform: translateY(-1px);
 }
 
 .login-card button[mat-raised-button]:active {
   transform: translateY(0);
-  box-shadow: 0 4px 12px rgba(196, 106, 43, 0.22), 0 2px 4px rgba(0, 0, 0, 0.12);
+  box-shadow:
+    0 4px 12px rgba(196, 106, 43, 0.22),
+    0 2px 4px rgba(0, 0, 0, 0.12);
 }
 
 .login-card button[mat-raised-button][disabled] {
@@ -135,6 +149,24 @@ mat-form-field.full-width {
 /* Spacing above button */
 button.full-width {
   margin-top: 10px;
+}
+
+.secondary-btn {
+  margin-top: 10px;
+  color: var(--secondary) !important;
+  font-weight: 600;
+  opacity: 0.85;
+  border-radius: 8px;
+  padding: 8px 0;
+
+  transition:
+    opacity 0.2s ease,
+    background 0.2s ease;
+}
+
+.secondary-btn:hover {
+  background: rgba(196, 106, 43, 0.08);
+  opacity: 1;
 }
 
 /* --------------------------------------------
