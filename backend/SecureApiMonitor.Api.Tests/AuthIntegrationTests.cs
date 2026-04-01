@@ -23,7 +23,7 @@ public class AuthIntegrationTests : IClassFixture<WebApplicationFactory<Program>
     {
         var request = new
         {
-            Username = $"user_{Guid.NewGuid():N}",
+            Username = CreateUsername(),
             Password = "Test123!"
         };
 
@@ -39,7 +39,7 @@ public class AuthIntegrationTests : IClassFixture<WebApplicationFactory<Program>
     [Fact]
     public async Task Register_ReturnsBadRequest_WhenUsernameAlreadyExists()
     {
-        var username = $"user_{Guid.NewGuid():N}";
+        var username = CreateUsername();
         var password = "Test123!";
 
         var request = new
@@ -63,7 +63,7 @@ public class AuthIntegrationTests : IClassFixture<WebApplicationFactory<Program>
     [Fact]
     public async Task Login_ReturnsToken_WhenCredentialsAreCorrect()
     {
-        var username = $"user_{Guid.NewGuid():N}";
+        var username = CreateUsername();
         var password = "Test123!";
 
         var registerRequest = new
@@ -92,7 +92,7 @@ public class AuthIntegrationTests : IClassFixture<WebApplicationFactory<Program>
     [Fact]
     public async Task Login_ReturnsUnauthorized_WhenPasswordIsWrong()
     {
-        var username = $"user_{Guid.NewGuid():N}";
+        var username = CreateUsername();
         var password = "Test123!";
 
         var registerRequest = new
@@ -114,6 +114,24 @@ public class AuthIntegrationTests : IClassFixture<WebApplicationFactory<Program>
         Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
     }
 
+    // Test that register fails when the password is too weak
+    [Fact]
+    public async Task Register_ReturnsBadRequest_WhenPasswordIsTooWeak()
+    {
+        var request = new
+        {
+            Username = CreateUsername(),
+            Password = "weak"
+        };
+
+        var response = await _client.PostAsJsonAsync("/api/auth/register", request);
+
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+
+        var body = await response.Content.ReadAsStringAsync();
+        Assert.Contains("Password", body);
+    }
+
     // Test that a protected endpoint returns unauthorized without a token
     [Fact]
     public async Task ProtectedEndpoint_ReturnsUnauthorized_WithoutToken()
@@ -127,7 +145,7 @@ public class AuthIntegrationTests : IClassFixture<WebApplicationFactory<Program>
     [Fact]
     public async Task ProtectedEndpoint_ReturnsSuccess_WithValidToken()
     {
-        var username = $"user_{Guid.NewGuid():N}";
+        var username = CreateUsername();
         var password = "Test123!";
 
         var registerRequest = new
@@ -153,6 +171,12 @@ public class AuthIntegrationTests : IClassFixture<WebApplicationFactory<Program>
         var body = await response.Content.ReadAsStringAsync();
         Assert.Contains("You are authenticated.", body);
         Assert.Contains(username, body);
+    }
+
+    // Creates a short unique username that matches the validation rules
+    private static string CreateUsername()
+    {
+        return $"User{Guid.NewGuid():N}".Substring(0, 12);
     }
 
     private class TokenResponse
