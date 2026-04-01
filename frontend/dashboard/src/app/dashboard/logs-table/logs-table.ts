@@ -1,4 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+// This component loads API logs, applies filters,
+// and shows the results in a table
+
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
@@ -101,6 +104,7 @@ export class LogsTableComponent implements OnInit, OnDestroy {
     private http: HttpClient,
     private authService: AuthService,
     private settingsService: SettingsService,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -135,10 +139,12 @@ export class LogsTableComponent implements OnInit, OnDestroy {
         this.logs = data;
         this.isLoading = false;
         this.applyFilters();
+        this.cdr.detectChanges();
       },
       error: () => {
         this.errorMessage = 'Failed to load logs.';
         this.isLoading = false;
+        this.cdr.detectChanges();
       },
     });
   }

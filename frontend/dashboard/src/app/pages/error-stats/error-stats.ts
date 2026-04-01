@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+// This component loads endpoint statistics and shows
+// which endpoints have the highest error rates
+
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StatsService, EndpointStats } from '../../core/stats.service';
 
@@ -10,11 +13,15 @@ import { StatsService, EndpointStats } from '../../core/stats.service';
   styleUrls: ['./error-stats.css'],
 })
 export class ErrorStats implements OnInit {
+  // UI state for endpoint error statistics
   endpoints: EndpointStats[] = [];
   isLoading = false;
   errorMessage = '';
 
-  constructor(private stats: StatsService) {}
+  constructor(
+    private stats: StatsService,
+    private cdr: ChangeDetectorRef,
+  ) {}
 
   ngOnInit(): void {
     this.load();
@@ -36,10 +43,12 @@ export class ErrorStats implements OnInit {
           .sort((a, b) => b.errorRate - a.errorRate); // worst first
 
         this.isLoading = false;
+        this.cdr.detectChanges();
       },
       error: () => {
         this.errorMessage = 'Failed to load error statistics.';
         this.isLoading = false;
+        this.cdr.detectChanges();
       },
     });
   }

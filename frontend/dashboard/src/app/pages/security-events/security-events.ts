@@ -1,5 +1,7 @@
-import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+// This component loads API logs and creates security events
+// based on suspicious activity from the last 24 hours
+
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../../auth/auth.service';
@@ -33,23 +35,22 @@ interface SecurityEvent {
   styleUrls: ['./security-events.css'],
 })
 export class SecurityEvents implements OnInit {
+  // UI state for detected events and loading status
   events: SecurityEvent[] = [];
   isLoading = false;
   errorMessage = '';
 
+  // Backend API base URL
   private readonly apiBaseUrl = 'http://localhost:5062/api';
 
   constructor(
     private http: HttpClient,
     private auth: AuthService,
-    private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
-    // Fires every time the route becomes active (even if component is reused)
-    this.route.url.subscribe(() => {
-      this.load();
-    });
+    this.load();
   }
 
   // Load logs and detect security events
@@ -77,10 +78,12 @@ export class SecurityEvents implements OnInit {
         this.detectUnknownEndpoint(recentLogs);
         this.detectSensitiveEndpointProbe(recentLogs);
         this.isLoading = false;
+        this.cdr.detectChanges();
       },
       error: () => {
         this.errorMessage = 'Failed to load security events.';
         this.isLoading = false;
+        this.cdr.detectChanges();
       },
     });
   }

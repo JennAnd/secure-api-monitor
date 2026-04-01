@@ -1,21 +1,23 @@
-import { Component, OnInit, inject } from '@angular/core';
+// This component loads overview statistics and shows
+// charts for API traffic, errors, and endpoint usage
+
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BaseChartDirective } from 'ng2-charts';
 import { StatsService, OverviewStats, EndpointStats } from '../../core/stats.service';
 import { ChartConfiguration, ChartType } from 'chart.js';
 
-
 @Component({
   selector: 'app-stats-charts',
   standalone: true,
-  imports: [CommonModule,
-     BaseChartDirective],
+  imports: [CommonModule, BaseChartDirective],
   templateUrl: './stats-charts.html',
   styleUrls: ['./stats-charts.css'],
 })
 export class StatsChartsComponent implements OnInit {
-  // Inject the StatsService to access backend statistics
+  // Inject services used in this component
   private stats = inject(StatsService);
+  private cdr = inject(ChangeDetectorRef);
 
   // UI state
   isLoading = false;
@@ -66,6 +68,7 @@ export class StatsChartsComponent implements OnInit {
       error: () => {
         this.errorMessage = 'Failed to load statistics.';
         this.isLoading = false;
+        this.cdr.detectChanges();
       },
     });
   }
@@ -79,18 +82,17 @@ export class StatsChartsComponent implements OnInit {
         // Update bar chart with endpoint names + request counts
         this.barChartData = {
           labels: list.map((x) => x.endpoint),
-          datasets: [
-            { label: 'Requests per endpoint', data: list.map((x) => x.requestCount) },
-          ],
+          datasets: [{ label: 'Requests per endpoint', data: list.map((x) => x.requestCount) }],
         };
 
         this.isLoading = false;
+        this.cdr.detectChanges();
       },
       error: () => {
         this.errorMessage = 'Failed to load endpoint statistics.';
         this.isLoading = false;
+        this.cdr.detectChanges();
       },
     });
   }
 }
-
