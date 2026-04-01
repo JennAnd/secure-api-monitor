@@ -179,3 +179,5 @@ app.UseMiddleware<RequestLoggingMiddleware>();
 app.MapControllers();
 
 app.Run();
+
+public partial class Program { }
