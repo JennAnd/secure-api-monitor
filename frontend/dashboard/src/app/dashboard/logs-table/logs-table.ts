@@ -9,6 +9,7 @@ import { AuthService } from '../../auth/auth.service';
 import { FormsModule } from '@angular/forms';
 import { interval, Subscription } from 'rxjs';
 import { SettingsService } from '../../core/settings.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 // Represents one log entry returned from the backend API
 export interface ApiLog {
@@ -25,7 +26,7 @@ export interface ApiLog {
 @Component({
   selector: 'app-logs-table',
   standalone: true,
-  imports: [CommonModule, MatTableModule, FormsModule],
+  imports: [CommonModule, MatTableModule, FormsModule, MatProgressSpinnerModule],
   templateUrl: './logs-table.html',
   styleUrls: ['./logs-table.css'],
 })

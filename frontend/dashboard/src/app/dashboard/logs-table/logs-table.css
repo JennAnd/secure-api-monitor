@@ -5,11 +5,14 @@
 /* Container card */
 .logs-wrapper {
   margin-top: 16px;
+  margin-right: 12px;
   padding: 20px 18px;
   border-radius: 14px;
   background: var(--card-bg);
   border: 1px solid var(--border-subtle);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.05), 0 3px 6px rgba(0, 0, 0, 0.04);
+  box-shadow:
+    0 10px 24px rgba(0, 0, 0, 0.05),
+    0 3px 6px rgba(0, 0, 0, 0.04);
 
   display: flex;
   flex-direction: column;
@@ -59,7 +62,10 @@
   font-size: 0.95rem;
   color: var(--text-main);
 
-  transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    background 0.18s ease;
 }
 
 /* Hover */
@@ -82,8 +88,29 @@
   opacity: 0.8;
 }
 
+/* Loading state */
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 24px 0;
+  text-align: center;
+}
+
+.loading-state ::ng-deep .mat-mdc-progress-spinner circle {
+  stroke: var(--primary);
+}
+
+.loading-state p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
 /* ---------------------------------------------------
-   TABLE
+   TABLE LAYOUT
 --------------------------------------------------- */
 
 table {
@@ -132,10 +159,7 @@ table {
   background: rgba(0, 0, 0, 0.04);
 }
 
-/* ---------------------------------------------------
-   STATUS COLORS
---------------------------------------------------- */
-
+/* Status layout */
 .status-success {
   color: #2e7d32;
   font-weight: 600;
@@ -159,12 +183,13 @@ table {
 }
 
 /* ---------------------------------------------------
-   TABLET — 768px
+   TABLET LAYOUT
 --------------------------------------------------- */
 
 @media (min-width: 768px) {
   .logs-wrapper {
     padding: 24px 26px;
+    margin-right: 22px;
   }
 
   .logs-filters {
@@ -179,12 +204,13 @@ table {
 }
 
 /* ---------------------------------------------------
-   DESKTOP — 1024px
+   DESKTOP LAYOUT
 --------------------------------------------------- */
 
 @media (min-width: 1024px) {
   .logs-wrapper {
     padding: 28px 30px;
+    margin-right: 40px;
   }
 
   .logs-filters {

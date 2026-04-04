@@ -4,11 +4,12 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StatsService, EndpointStats } from '../../core/stats.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-error-stats',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatProgressSpinnerModule],
   templateUrl: './error-stats.html',
   styleUrls: ['./error-stats.css'],
 })

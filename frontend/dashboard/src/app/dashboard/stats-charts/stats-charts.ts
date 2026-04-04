@@ -6,11 +6,12 @@ import { CommonModule } from '@angular/common';
 import { BaseChartDirective } from 'ng2-charts';
 import { StatsService, OverviewStats, EndpointStats } from '../../core/stats.service';
 import { ChartConfiguration, ChartType } from 'chart.js';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-stats-charts',
   standalone: true,
-  imports: [CommonModule, BaseChartDirective],
+  imports: [CommonModule, BaseChartDirective, MatProgressSpinnerModule],
   templateUrl: './stats-charts.html',
   styleUrls: ['./stats-charts.css'],
 })

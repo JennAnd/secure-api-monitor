@@ -1,32 +1,39 @@
 <!-- Loading -->
-<div *ngIf="isLoading" class="loading">Loading security analysis...</div>
+<div class="security-events-wrapper">
+  <div *ngIf="isLoading" class="loading-state">
+    <mat-spinner diameter="32"></mat-spinner>
+    <p>Loading security analysis...</p>
+  </div>
 
-<!-- Error -->
-<div *ngIf="!isLoading && errorMessage" class="error">
-  {{ errorMessage }}
-</div>
+  <!-- Error -->
+  <div *ngIf="!isLoading && errorMessage" class="error">
+    {{ errorMessage }}
+  </div>
 
-<!-- No events -->
-<div *ngIf="!isLoading && !errorMessage && events.length === 0" class="empty">
-  No suspicious activity detected
-</div>
+  <!-- No events -->
+  <div *ngIf="!isLoading && !errorMessage && events.length === 0" class="empty-state">
+    <div class="empty-icon">✓</div>
+    <h3>No suspicious activity detected</h3>
+    <p>All monitored traffic looks normal right now.</p>
+  </div>
 
-<!-- Events -->
-<div class="events" *ngIf="events.length > 0">
-  <div class="event-card" *ngFor="let e of events">
-    <div class="event-header">
-      <span class="badge danger">{{ e.type }}</span>
-      <span class="ip">{{ e.ip }}</span>
-    </div>
-
-    <div class="event-body">
-      <p>{{ e.description }}</p>
-      <!-- Show endpoint when the event is related to one-->
-      <div class="meta" *ngIf="e.endpoint">
-        Endpoint: <strong>{{ e.endpoint }}</strong>
+  <!-- Events -->
+  <div class="events" *ngIf="events.length > 0">
+    <div class="event-card" *ngFor="let e of events">
+      <div class="event-header">
+        <span class="badge danger">{{ e.type }}</span>
+        <span class="ip">{{ e.ip }}</span>
       </div>
-      <div class="meta">
-        Attempts: <strong>{{ e.count }}</strong>
+
+      <div class="event-body">
+        <p>{{ e.description }}</p>
+        <!-- Show endpoint when the event is related to one-->
+        <div class="meta" *ngIf="e.endpoint">
+          Endpoint: <strong>{{ e.endpoint }}</strong>
+        </div>
+        <div class="meta">
+          Attempts: <strong>{{ e.count }}</strong>
+        </div>
       </div>
     </div>
   </div>

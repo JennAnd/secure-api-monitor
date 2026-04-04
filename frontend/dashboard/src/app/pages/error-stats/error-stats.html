@@ -1,5 +1,8 @@
 <!-- Loading -->
-<div *ngIf="isLoading" class="state-message">Loading error statistics...</div>
+<div *ngIf="isLoading" class="loading-state">
+  <mat-spinner diameter="32"></mat-spinner>
+  <p>Loading error statistics...</p>
+</div>
 
 <!-- Error -->
 <div *ngIf="!isLoading && errorMessage" class="state-message error">
@@ -8,7 +11,7 @@
 
 <!-- No errors -->
 <div *ngIf="!isLoading && !errorMessage && endpoints.length === 0" class="state-message">
-  No errors detected 🎉
+  No error activity detected.
 </div>
 
 <!-- Error table -->

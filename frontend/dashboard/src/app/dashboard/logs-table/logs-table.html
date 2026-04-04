@@ -36,8 +36,11 @@
     </label>
   </div>
 
-  <!-- Loading spinner text -->
-  <p *ngIf="isLoading">Loading logs...</p>
+  <!-- Show a loading state while logs are being fetched -->
+  <div *ngIf="isLoading" class="loading-state">
+    <mat-spinner diameter="32"></mat-spinner>
+    <p>Loading logs...</p>
+  </div>
 
   <!-- Error message -->
   <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>

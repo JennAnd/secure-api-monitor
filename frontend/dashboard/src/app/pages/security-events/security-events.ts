@@ -5,6 +5,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../../auth/auth.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 // Represents one API request log
 interface ApiLog {
@@ -30,7 +31,7 @@ interface SecurityEvent {
 @Component({
   selector: 'app-security-events',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatProgressSpinnerModule],
   templateUrl: './security-events.html',
   styleUrls: ['./security-events.css'],
 })
