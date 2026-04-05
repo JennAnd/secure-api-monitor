@@ -21,9 +21,7 @@
     sans-serif;
 }
 
-/* -------------------------------------------
-   BRAND
-------------------------------------------- */
+/* Brand */
 .brand {
   font-size: 1.15rem;
   font-weight: 600;
@@ -36,9 +34,7 @@
   flex: 1 1 auto;
 }
 
-/* -------------------------------------------
-   NAV BUTTONS
-------------------------------------------- */
+/* Nav buttons */
 .navbar button[mat-button] {
   color: var(--text-main);
   font-weight: 500;
@@ -70,10 +66,7 @@
   background: rgba(196, 106, 43, 0.1);
 }
 
-/* -------------------------------------------
-   HAMBURGER MENU
-------------------------------------------- */
-
+/* Hamburger menu */
 .navbar .menu-toggle {
   background: none;
   border: none;
@@ -95,6 +88,19 @@
 .navbar .menu-toggle:hover {
   background: rgba(0, 0, 0, 0.06);
 }
+
+/* -------------------------------------------
+   MOBILE LAYOUT
+------------------------------------------- */
+@media (max-width: 767px) {
+  .dashboard-link {
+    display: none;
+  }
+}
+
+/* -------------------------------------------
+   DESKTOP LAYOUT
+------------------------------------------- */
 
 /* Hide hamburger on desktop */
 @media (min-width: 1024px) {
