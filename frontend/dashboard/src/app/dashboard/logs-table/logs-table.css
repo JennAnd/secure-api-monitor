@@ -5,7 +5,9 @@
 /* Container card */
 .logs-wrapper {
   margin-top: 16px;
-  margin-right: 12px;
+  width: calc(100% - 24px);
+  box-sizing: border-box;
+
   padding: 20px 18px;
   border-radius: 14px;
   background: var(--card-bg);
@@ -22,7 +24,7 @@
 /* Heading */
 .logs-wrapper h2 {
   margin: 0;
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   font-weight: 600;
   color: var(--text-main);
 }
@@ -58,7 +60,6 @@
   border-radius: 10px;
   border: 1px solid var(--border-subtle);
   background: #ffffff;
-
   font-size: 0.95rem;
   color: var(--text-main);
 
@@ -113,45 +114,46 @@
    TABLE LAYOUT
 --------------------------------------------------- */
 
-table {
-  display: block;
+.scroll-hint {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  opacity: 0.8;
+}
+
+.table-scroll {
   width: 100%;
   overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.logs-table {
+  width: 100%;
   border-radius: 12px;
-  white-space: nowrap;
 }
 
-/* Allow wrapping for cell content */
-.mat-mdc-cell {
-  font-size: 0.9rem;
-  color: var(--text-main);
-  padding-right: 12px;
-
-  white-space: normal;
-  word-break: break-word;
-}
-
-/* At > 480px allow the table to break lines normally */
-@media (min-width: 480px) {
-  table {
-    white-space: normal;
-  }
-}
-
-/* Header cells */
 .mat-mdc-header-cell {
   font-weight: 600;
   color: var(--text-main) !important;
   background: #f8f4ef !important;
   border-bottom: 1px solid var(--border-subtle);
-  white-space: normal;
+  white-space: nowrap;
 }
 
-/* Force wrap for long columns */
+/* Table cells */
+.mat-mdc-cell {
+  font-size: 0.9rem;
+  color: var(--text-main);
+  padding-right: 12px;
+  white-space: nowrap;
+  word-break: normal;
+}
+
+/* Keep long columns on one line on small screens */
 .mat-column-timestamp,
 .mat-column-endpoint {
-  white-space: normal !important;
-  word-break: break-all;
+  white-space: nowrap !important;
+  word-break: normal !important;
 }
 
 /* Hover row */
@@ -183,13 +185,44 @@ table {
 }
 
 /* ---------------------------------------------------
+   MOBILE LAYOUT
+--------------------------------------------------- */
+
+@media (max-width: 767px) {
+  .logs-wrapper {
+    width: calc(100% - 24px);
+  }
+
+  .table-scroll {
+    overflow-x: auto;
+  }
+
+  .logs-table {
+    width: 720px;
+    min-width: 720px;
+  }
+
+  .mat-mdc-header-cell,
+  .mat-mdc-cell,
+  .mat-column-timestamp,
+  .mat-column-endpoint {
+    white-space: nowrap !important;
+    word-break: normal !important;
+    overflow-wrap: normal !important;
+  }
+}
+/* ---------------------------------------------------
    TABLET LAYOUT
 --------------------------------------------------- */
 
 @media (min-width: 768px) {
   .logs-wrapper {
+    width: calc(100% - 24px);
     padding: 24px 26px;
-    margin-right: 22px;
+  }
+
+  .scroll-hint {
+    display: none;
   }
 
   .logs-filters {
@@ -201,6 +234,23 @@ table {
   .logs-filters label {
     width: calc(50% - 10px);
   }
+
+  .logs-table {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .mat-mdc-header-cell,
+  .mat-mdc-cell {
+    white-space: normal;
+  }
+
+  .mat-column-timestamp,
+  .mat-column-endpoint {
+    white-space: normal !important;
+    word-break: break-word !important;
+    overflow-wrap: anywhere;
+  }
 }
 
 /* ---------------------------------------------------
@@ -209,8 +259,8 @@ table {
 
 @media (min-width: 1024px) {
   .logs-wrapper {
+    width: calc(100% - 40px);
     padding: 28px 30px;
-    margin-right: 40px;
   }
 
   .logs-filters {
@@ -221,9 +271,5 @@ table {
 
   .logs-filters label {
     width: auto;
-  }
-
-  table {
-    white-space: normal;
   }
 }
