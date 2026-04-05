@@ -1,8 +1,21 @@
+/* --------------------------------------------
+   OVERVIEW PAGE
+-------------------------------------------- */
+
 /* Page layout */
 .settings-wrapper {
   display: flex;
   flex-direction: column;
   gap: 24px;
+  width: 100%;
+  max-width: 640px;
+}
+
+.settings-wrapper h2 {
+  margin: 0;
+  font-size: 1.3rem;
+  color: var(--text-main);
+  opacity: 0.9;
 }
 
 /* Cards — same visual style as dashboard sections */
@@ -11,7 +24,9 @@
   border: 1px solid var(--border-subtle);
   border-radius: 14px;
   padding: 20px 22px;
+  width: 100%;
   max-width: 460px;
+  box-sizing: border-box;
 
   box-shadow:
     0 12px 28px rgba(0, 0, 0, 0.05),
@@ -24,6 +39,25 @@
   font-size: 1.05rem;
   font-weight: 600;
   color: var(--text-main);
+}
+
+.status {
+  color: #2e7d32;
+  font-weight: 600;
+}
+
+/* Text under section titles */
+.section-text {
+  margin: 0 0 12px 0;
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
+
+/* Paragraphs inside cards */
+.settings-card p {
+  margin: 0 0 10px 0;
+  color: var(--text-main);
+  font-size: 0.95rem;
 }
 
 /* Labels */
@@ -45,7 +79,7 @@
   background: white;
 }
 
-/* Buttons — same feeling as rest of app */
+/* Buttons */
 .settings-card button {
   margin-top: 16px;
   padding: 9px 16px;
@@ -74,11 +108,41 @@
   box-shadow: 0 2px 6px rgba(196, 106, 43, 0.25);
 }
 
-/* Logout button slightly different tone */
-.settings-card button:last-child {
-  background: var(--secondary);
+.settings-card button:disabled {
+  background: #d3c6ba;
+  color: #f8f4f0;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+  opacity: 0.7;
 }
 
-.settings-card button:last-child:hover {
-  box-shadow: 0 6px 14px rgba(138, 79, 45, 0.25);
+.settings-card button:disabled:hover {
+  transform: none;
+  box-shadow: none;
+  background: #d3c6ba;
+}
+
+/* Save feedback */
+.settings-card .save-message {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #2e7d32;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* --------------------------------------------
+   MOBILE LAYOUT
+-------------------------------------------- */
+
+/* Cards */
+@media (max-width: 767px) {
+  .settings-card {
+    width: calc(100% - 24px);
+    max-width: none;
+    margin-left: 0;
+  }
 }

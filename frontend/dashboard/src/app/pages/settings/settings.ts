@@ -1,3 +1,6 @@
+// This component manages user session info and dashboard preferences
+// such as auto refresh and refresh interval
+
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../auth/auth.service';
@@ -14,9 +17,16 @@ import { SettingsService } from '../../core/settings.service';
 export class Settings implements OnInit {
   username = '';
 
-  // preferences
+  // Current values
   autoRefresh = true;
   refreshSeconds = 10;
+
+  // Original values (used to detect changes)
+  originalAutoRefresh = true;
+  originalRefreshSeconds = 10;
+
+  // Shows a short success message after saving
+  saved = false;
 
   constructor(
     private auth: AuthService,
@@ -27,11 +37,16 @@ export class Settings implements OnInit {
     this.loadUser();
 
     const s = this.settingsService.current;
+
     this.autoRefresh = s.autoRefresh;
     this.refreshSeconds = s.refreshSeconds;
+
+    // Store original values
+    this.originalAutoRefresh = s.autoRefresh;
+    this.originalRefreshSeconds = s.refreshSeconds;
   }
 
-  // Decode username from token
+  // Decode username from JWT token
   private loadUser() {
     const token = this.auth.getToken();
     if (!token) return;
@@ -40,16 +55,29 @@ export class Settings implements OnInit {
     this.username = payload['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'];
   }
 
-  // Save preferences
+  // Check if user has made changes
+  hasChanges(): boolean {
+    return (
+      this.autoRefresh !== this.originalAutoRefresh ||
+      this.refreshSeconds !== this.originalRefreshSeconds
+    );
+  }
+
+  // Save current settings and show short feedback
   save(): void {
     this.settingsService.update({
       autoRefresh: this.autoRefresh,
       refreshSeconds: this.refreshSeconds,
     });
-  }
 
-  logout(): void {
-    this.auth.logout();
-    location.href = '/login';
+    // Update original values
+    this.originalAutoRefresh = this.autoRefresh;
+    this.originalRefreshSeconds = this.refreshSeconds;
+
+    this.saved = true;
+
+    setTimeout(() => {
+      this.saved = false;
+    }, 2000);
   }
 }
