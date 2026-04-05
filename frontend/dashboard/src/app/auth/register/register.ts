@@ -1,7 +1,7 @@
 // This component handles user registration and validates username
 // and password rules before sending the request to the backend
 
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -40,6 +40,7 @@ export class RegisterComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   // Called when the user presses the create account button
@@ -89,12 +90,14 @@ export class RegisterComponent {
     this.authService.register(this.username, this.password).subscribe({
       next: () => {
         this.isLoading = false;
+        this.cdr.detectChanges();
         // After successful registration, navigate back to the login page
         this.router.navigate(['/login'], { queryParams: { registered: 'true' } });
       },
       error: (error) => {
         this.isLoading = false;
         this.errorMessage = error?.error ?? 'Registration failed. Please check your input.';
+        this.cdr.detectChanges();
       },
     });
   }
