@@ -3,9 +3,14 @@
 -------------------------------------------- */
 
 :host {
+  display: block;
+}
+
+.overview-wrapper {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  width: 100%;
 }
 
 /* Header section */
@@ -17,7 +22,7 @@
 
 .dashboard-header h1 {
   margin: 0;
-  font-size: 1.55rem;
+  font-size: 1.45rem;
   font-weight: 600;
   color: var(--text-main);
   letter-spacing: -0.01em;
@@ -37,6 +42,8 @@ app-logs-table {
   border: 1px solid var(--border-subtle);
   border-radius: 14px;
   padding: 20px 22px;
+  width: 100%;
+  box-sizing: border-box;
 
   box-shadow:
     0 12px 28px rgba(0, 0, 0, 0.05),
@@ -44,16 +51,30 @@ app-logs-table {
 }
 
 /* --------------------------------------------
-   TABLET LAYOUT
+   MOBILE LAYOUT
 -------------------------------------------- */
-@media (min-width: 600px) {
-  :host {
-    gap: 24px;
+@media (max-width: 767px) {
+  .overview-wrapper {
+    gap: 18px;
   }
 
-  app-stats-charts,
-  app-logs-table {
-    padding: 24px 28px;
+  .dashboard-header h1 {
+    font-size: 1.35rem;
+  }
+
+  app-stats-charts {
+    width: calc(100% - 24px);
+    margin-left: 0;
+  }
+}
+
+/* --------------------------------------------
+   TABLET LAYOUT
+-------------------------------------------- */
+@media (min-width: 768px) {
+  .overview-wrapper {
+    width: calc(100% - 32px);
+    gap: 24px;
   }
 }
 
@@ -61,7 +82,7 @@ app-logs-table {
    DESKTOP LAYOUT
 -------------------------------------------- */
 @media (min-width: 1024px) {
-  :host {
+  .overview-wrapper {
     gap: 28px;
   }
 }

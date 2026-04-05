@@ -89,7 +89,7 @@
 /* ---------------------------------------------------
    DESKTOP LAYOUT
 --------------------------------------------------- */
-@media (min-width: 1024px) {
+@media (min-width: 1360px) {
   .stats-grid {
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
