@@ -18,7 +18,7 @@
 <div *ngIf="!isLoading && endpoints.length > 0" class="error-stats-wrapper">
   <div class="error-header">
     <h2>Error Statistics</h2>
-    <p>Endpoints ranked by failure rate</p>
+    <p>Shows which endpoints have the highest proportion of failed requests.</p>
   </div>
 
   <div class="error-list">
@@ -39,7 +39,7 @@
         </div>
 
         <div class="metric highlight">
-          <span class="label">Error rate</span>
+          <span class="label">Failure rate</span>
           <span class="value">{{ e.errorRate }}%</span>
         </div>
       </div>

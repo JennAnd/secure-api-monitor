@@ -16,19 +16,25 @@
   display: flex;
   flex-direction: column;
   gap: 18px;
+  width: calc(100% - 24px);
+  box-sizing: border-box;
 }
 
 /* Header section */
 .error-header h2 {
   margin: 0;
-  font-size: 1.25rem;
+  font-size: 1.3rem;
+  font-weight: 600;
   color: var(--text-main);
+  opacity: 0.9;
+  letter-spacing: -0.01em;
 }
 
 .error-header p {
   margin: 6px 0 0;
   color: var(--text-muted);
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+  max-width: 560px;
 }
 
 /* Cards */
@@ -106,6 +112,10 @@
    TABLET LAYOUT
 -------------------------------------------- */
 @media (min-width: 600px) {
+  .error-stats-wrapper {
+    width: calc(100% - 24px);
+  }
+
   .error-card {
     flex-direction: row;
     justify-content: space-between;
@@ -122,6 +132,11 @@
    DESKTOP LAYOUT
 -------------------------------------------- */
 @media (min-width: 1024px) {
+  .error-stats-wrapper {
+    width: calc(100% - 40px);
+    gap: 20px;
+  }
+
   .error-list {
     gap: 18px;
   }
