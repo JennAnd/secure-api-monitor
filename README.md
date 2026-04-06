@@ -133,6 +133,22 @@ I also wanted to explore how API activity can be monitored and visualized in a w
 
 ---
 
+## Screenshots
+
+### Dashboard
+
+![Dashboard](images/dashboard.png)
+
+### API Logs
+
+![API Logs](images/logs.png)
+
+### Security Alert
+
+![Security Events](images/security.png)
+
+---
+
 ## Author
 
 Jennifer – Junior Fullstack Developer
