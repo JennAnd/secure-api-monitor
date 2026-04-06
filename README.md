@@ -137,15 +137,15 @@ I also wanted to explore how API activity can be monitored and visualized in a w
 
 ### Dashboard
 
-![Dashboard](images/dashboard.png)
+<img src="images/dashboard.png" alt="Dashboard" width="700" />
 
 ### API Logs
 
-![API Logs](images/logs.png)
+<img src="images/logs.png" alt="API Logs" width="700" />
 
 ### Security Alert
 
-![Security Events](images/security.png)
+<img src="images/security.png" alt="Security Events" width="700" />
 
 ---
 
