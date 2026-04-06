@@ -7,7 +7,7 @@ A fullstack web application for monitoring API activity, tracking security-relat
 ## Features
 
 - Authentication with JWT
-- Password hashing
+- Secure password hashing
 - API request logging via middleware
 - Dashboard with charts and logs
 - Security event tracking
@@ -24,6 +24,10 @@ A fullstack web application for monitoring API activity, tracking security-relat
 - Entity Framework Core
 - JWT Authentication
 
+### Database
+
+- PostgreSQL (Neon)
+
 ### Frontend
 
 - Angular (standalone components)
@@ -37,7 +41,7 @@ A fullstack web application for monitoring API activity, tracking security-relat
 
 ### Backend (`SecureApiMonitor.Api`)
 
-- `Auth/` → JWT setup, password hashing, auth requests
+- `Auth/` → JWT setup, ASP .NET Identity password hashing, auth requests
 - `Controllers/` → API endpoints (auth, logs, stats, status)
 - `Data/` → DbContext (ApplicationDbContext)
 - `Dtos/` → Data transfer objects

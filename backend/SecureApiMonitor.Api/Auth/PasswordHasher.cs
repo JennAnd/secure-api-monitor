@@ -1,23 +1,25 @@
-// Helper class for hashing and verifying passwords using SHA256
-using System.Security.Cryptography;
-using System.Text;
+// Helper class for securely hashing and verifying passwords using ASP.NET Identity
+
+using Microsoft.AspNetCore.Identity;
 
 namespace SecureApiMonitor.Api.Auth;
 
 public class PasswordHasher
 {
-    // Hashes a plain text password into a SHA256 string
+    // Built-in password hasher from ASP.NET Identity
+    private readonly Microsoft.AspNetCore.Identity.PasswordHasher<object> _hasher
+        = new Microsoft.AspNetCore.Identity.PasswordHasher<object>();
+
+    // Hashes a plain text password before saving it to the database
     public string Hash(string password)
     {
-        using var sha = SHA256.Create();
-        var bytes = Encoding.UTF8.GetBytes(password);
-        var hash = sha.ComputeHash(bytes);
-        return Convert.ToHexString(hash); // returns uppercase hex string
+        return _hasher.HashPassword(null, password);
     }
 
-    // Checks if a given plain text password matches a stored hash.
+    // Verifies if the entered password matches the stored hashed password
     public bool Verify(string password, string storedHash)
     {
-        return Hash(password) == storedHash;
+        var result = _hasher.VerifyHashedPassword(null, storedHash, password);
+        return result == PasswordVerificationResult.Success;
     }
 }
