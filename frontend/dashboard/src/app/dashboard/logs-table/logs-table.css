@@ -22,11 +22,11 @@
 }
 
 /* Heading */
-.logs-wrapper h2 {
+h2 {
   margin: 0;
-  font-size: 1.2rem;
-  font-weight: 600;
+  font-size: 1.3rem;
   color: var(--text-main);
+  opacity: 0.9;
 }
 
 /* Log counters */
