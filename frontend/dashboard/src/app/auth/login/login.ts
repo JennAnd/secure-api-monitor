@@ -51,6 +51,10 @@ export class LoginComponent {
       if (params['registered'] === 'true') {
         this.successMessage = 'Your account has been created. Please log in.';
       }
+
+      if (params['sessionExpired'] === 'true') {
+        this.errorMessage = 'Your session has expired. Please log in again.';
+      }
     });
   }
 

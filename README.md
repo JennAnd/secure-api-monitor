@@ -15,7 +15,6 @@ A fullstack web application for monitoring API activity, tracking security-relat
 - Security event tracking
 - Activity with live updates (polling)
 - Configurable refresh interval
-- Dashboard overview with live API metrics
 - Dynamic system status (healthy, warning, critical) based on error rate
 - Responsive UI optimized for mobile, tablet, and desktop
 
@@ -76,13 +75,13 @@ cd backend/SecureApiMonitor.Api
 dotnet restore
 dotnet ef database update
 dotnet run
+```
 
 After starting the backend, open your browser at:
 
 http://localhost:5062/swagger
 
 This is the Swagger UI where you can test all API endpoints.
-```
 
 ### Frontend
 
