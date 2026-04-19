@@ -1,69 +1,79 @@
 /* --------------------------------------------
-   ERROR STATES
+   ERROR STATISTICS PAGE
 -------------------------------------------- */
 
-.state-message {
-  padding: 18px;
-  color: var(--text-muted);
-}
+/* --------------------------------------------
+   WRAPPER
+-------------------------------------------- */
 
-.state-message.error {
-  color: var(--error);
-}
-
-/* Wrapper */
 .error-stats-wrapper {
+  width: 100%;
+  max-width: 980px;
   display: flex;
   flex-direction: column;
   gap: 18px;
-  width: calc(100% - 24px);
   box-sizing: border-box;
 }
 
-/* Header section */
+/* --------------------------------------------
+   HEADER
+-------------------------------------------- */
+
 .error-header h2 {
-  margin: 0;
-  font-size: 1.3rem;
+  margin: 0 0 6px;
+  font-size: 1.55rem;
   font-weight: 600;
   color: var(--text-main);
-  opacity: 0.9;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
-.error-header p {
-  margin: 6px 0 0;
+.error-intro {
+  margin: 0;
   color: var(--text-muted);
-  font-size: 0.95rem;
-  max-width: 560px;
+  font-size: 0.96rem;
+  max-width: 620px;
+  line-height: 1.5;
 }
 
-/* Cards */
+/* --------------------------------------------
+   LIST
+-------------------------------------------- */
+
 .error-list {
   display: flex;
   flex-direction: column;
   gap: 14px;
 }
 
+/* --------------------------------------------
+   CARD
+-------------------------------------------- */
+
 .error-card {
   background: var(--card-bg);
   border: 1px solid var(--border-subtle);
-  border-radius: 12px;
-  padding: 16px;
+  border-radius: var(--radius-md);
+  padding: 18px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+  gap: 16px;
+  box-shadow: none;
 }
 
 .endpoint {
+  font-size: 1rem;
   font-weight: 600;
+  color: var(--text-main);
   word-break: break-word;
 }
 
-/* Metrics */
+/* --------------------------------------------
+   METRICS
+-------------------------------------------- */
+
 .metrics {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
 }
 
@@ -74,27 +84,31 @@
 }
 
 .metric .label {
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   color: var(--text-muted);
 }
 
 .metric .value {
   font-size: 1rem;
   font-weight: 600;
+  color: var(--text-main);
 }
 
 .metric.highlight .value {
   color: var(--primary);
 }
 
-/* Loading state */
+/* --------------------------------------------
+   STATES
+-------------------------------------------- */
+
 .loading-state {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 12px;
-  padding: 24px 0;
+  padding: 28px 0;
   text-align: center;
 }
 
@@ -108,23 +122,73 @@
   stroke: var(--primary);
 }
 
-/* --------------------------------------------
-   TABLET LAYOUT
--------------------------------------------- */
-@media (min-width: 600px) {
-  .error-stats-wrapper {
-    width: calc(100% - 24px);
-  }
+.error-state {
+  padding: 16px 18px;
+  color: var(--error);
+  background: rgba(194, 59, 42, 0.06);
+  border: 1px solid rgba(194, 59, 42, 0.14);
+  border-radius: var(--radius-md);
+  max-width: 520px;
+}
 
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 32px 20px;
+  text-align: center;
+  color: var(--text-muted);
+  background: var(--card-bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  box-shadow: none;
+  max-width: 520px;
+}
+
+.empty-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(31, 143, 95, 0.1);
+  color: var(--success);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.empty-state h3 {
+  margin: 0;
+  font-size: 1.02rem;
+  color: var(--text-main);
+}
+
+.empty-state p {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  max-width: 420px;
+}
+
+/* --------------------------------------------
+   TABLET AND UP
+-------------------------------------------- */
+@media (min-width: 700px) {
   .error-card {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    gap: 20px;
+  }
+
+  .endpoint {
+    width: 34%;
   }
 
   .metrics {
-    width: 60%;
-    justify-content: space-around;
+    width: 62%;
   }
 }
 
@@ -132,20 +196,79 @@
    DESKTOP LAYOUT
 -------------------------------------------- */
 @media (min-width: 1024px) {
-  .error-stats-wrapper {
-    width: calc(100% - 40px);
-    gap: 20px;
-  }
-
   .error-list {
-    gap: 18px;
+    gap: 16px;
   }
 
   .error-card {
-    padding: 20px 24px;
+    padding: 20px 22px;
   }
 
   .endpoint {
-    font-size: 1.05rem;
+    font-size: 1.02rem;
+  }
+}
+
+/* --------------------------------------------
+   MOBILE
+-------------------------------------------- */
+
+@media (max-width: 767px) {
+  .error-header h2 {
+    font-size: 1.35rem;
+    margin-bottom: 4px;
+  }
+
+  .error-intro {
+    font-size: 0.92rem;
+    max-width: none;
+  }
+
+  .error-card {
+    padding: 16px;
+    gap: 14px;
+  }
+
+  .metrics {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .metric .label {
+    font-size: 0.74rem;
+  }
+
+  .metric .value {
+    font-size: 0.96rem;
+  }
+}
+
+/* --------------------------------------------
+   EXTRA SMALL MOBILE
+-------------------------------------------- */
+
+@media (max-width: 459px) {
+  .error-header h2 {
+    font-size: 1.2rem;
+  }
+
+  .error-intro {
+    font-size: 0.9rem;
+  }
+
+  .error-card {
+    padding: 14px;
+  }
+
+  .metrics {
+    gap: 8px;
+  }
+
+  .metric .label {
+    font-size: 0.72rem;
+  }
+
+  .metric .value {
+    font-size: 0.92rem;
   }
 }

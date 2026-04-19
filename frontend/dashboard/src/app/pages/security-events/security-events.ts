@@ -25,6 +25,7 @@ interface SecurityEvent {
   description: string;
   ip: string;
   count: number;
+  countLabel: string;
   endpoint?: string;
 }
 
@@ -108,6 +109,7 @@ export class SecurityEvents implements OnInit {
           description: 'Multiple failed login attempts detected',
           ip,
           count: grouped[ip],
+          countLabel: 'Attempts',
         });
       }
     }
@@ -146,6 +148,7 @@ export class SecurityEvents implements OnInit {
             ip: '-',
             endpoint,
             count: errors,
+            countLabel: 'Failed requests',
           });
         }
       }
@@ -168,6 +171,7 @@ export class SecurityEvents implements OnInit {
           ip: '-',
           endpoint,
           count: grouped[endpoint],
+          countLabel: 'Requests',
         });
       }
     }
@@ -196,6 +200,7 @@ export class SecurityEvents implements OnInit {
           ip: '-',
           endpoint,
           count: grouped[endpoint],
+          countLabel: 'Requests',
         });
       }
     }

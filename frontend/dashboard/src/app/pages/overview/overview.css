@@ -4,16 +4,21 @@
 
 :host {
   display: block;
+  width: 100%;
 }
 
 .overview-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 22px;
   width: 100%;
+  max-width: 1040px;
 }
 
-/* Header section */
+/* --------------------------------------------
+   HEADER
+-------------------------------------------- */
+
 .dashboard-header {
   display: flex;
   flex-direction: column;
@@ -22,32 +27,63 @@
 
 .dashboard-header h1 {
   margin: 0;
-  font-size: 1.45rem;
+  font-size: 1.7rem;
   font-weight: 600;
   color: var(--text-main);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
-.dashboard-header p {
+.dashboard-intro {
   margin: 0;
   color: var(--text-muted);
   font-size: 0.98rem;
+  line-height: 1.5;
+  max-width: 680px;
 }
 
-/* Content cards */
-app-stats-charts,
-app-logs-table {
-  display: block;
-  background: var(--card-bg);
-  border: 1px solid var(--border-subtle);
-  border-radius: 14px;
-  padding: 20px 22px;
-  width: 100%;
-  box-sizing: border-box;
+/* --------------------------------------------
+   STATUS ROW
+-------------------------------------------- */
 
-  box-shadow:
-    0 12px 28px rgba(0, 0, 0, 0.05),
-    0 3px 6px rgba(0, 0, 0, 0.04);
+.dashboard-status-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.status-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background: var(--card-bg);
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.status-dot.success {
+  background: var(--success);
+}
+
+.status-dot.warning {
+  background: var(--warning);
+}
+
+.status-dot.danger {
+  background: var(--error);
+}
+
+.status-label {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--text-main);
 }
 
 /* --------------------------------------------
@@ -62,19 +98,18 @@ app-logs-table {
     font-size: 1.35rem;
   }
 
-  app-stats-charts {
-    width: calc(100% - 24px);
-    margin-left: 0;
+  .dashboard-intro {
+    font-size: 0.92rem;
+    max-width: none;
   }
-}
 
-/* --------------------------------------------
-   TABLET LAYOUT
--------------------------------------------- */
-@media (min-width: 768px) {
-  .overview-wrapper {
-    width: calc(100% - 32px);
-    gap: 24px;
+  .dashboard-status-row {
+    gap: 10px;
+  }
+
+  .status-item {
+    width: 100%;
+    box-sizing: border-box;
   }
 }
 
@@ -83,6 +118,6 @@ app-logs-table {
 -------------------------------------------- */
 @media (min-width: 1024px) {
   .overview-wrapper {
-    gap: 28px;
+    gap: 24px;
   }
 }

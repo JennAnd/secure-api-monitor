@@ -6,58 +6,105 @@
 .stats-grid {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 18px;
   width: 100%;
+  max-width: 1040px;
 }
 
-/* Card styling */
+/* ---------------------------------------------------
+   CARDS
+--------------------------------------------------- */
+
 .overview-card,
 .chart-card {
   background: var(--card-bg);
   border: 1px solid var(--border-subtle);
-  border-radius: 14px;
-  padding: 20px 22px;
-
-  box-shadow:
-    0 12px 28px rgba(0, 0, 0, 0.05),
-    0 3px 6px rgba(0, 0, 0, 0.04);
-
+  border-radius: var(--radius-md);
+  padding: 18px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 16px;
+  box-shadow: none;
 }
 
-/* Headings */
+.card-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
 .overview-card h3,
 .chart-card h4 {
   margin: 0;
   font-weight: 600;
   color: var(--text-main);
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   letter-spacing: -0.01em;
 }
 
-/* Overview text styles */
-.overview-card p {
+.card-subtitle {
   margin: 0;
-  font-size: 0.92rem;
-  color: var(--text-main);
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.5;
 }
 
-/* Chart responsive */
+/* ---------------------------------------------------
+   OVERVIEW METRICS
+--------------------------------------------------- */
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.metric-box {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px;
+  border: 1px solid rgba(17, 24, 39, 0.06);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.metric-label {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.metric-value {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-main);
+  letter-spacing: -0.01em;
+}
+
+.metric-value.error {
+  color: var(--error);
+}
+
+/* ---------------------------------------------------
+   CHARTS
+--------------------------------------------------- */
+
 .chart-card canvas {
   width: 100%;
-  max-height: 200px;
+  max-height: 220px;
 }
 
-/* Loading state */
+/* ---------------------------------------------------
+   STATES
+--------------------------------------------------- */
+
 .loading-state {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 12px;
-  padding: 24px 0;
+  padding: 28px 0;
   text-align: center;
 }
 
@@ -71,36 +118,110 @@
   stroke: var(--primary);
 }
 
+.error-state {
+  padding: 16px 18px;
+  color: var(--error);
+  background: rgba(194, 59, 42, 0.06);
+  border: 1px solid rgba(194, 59, 42, 0.14);
+  border-radius: var(--radius-md);
+  max-width: 520px;
+}
+
+.error-state p {
+  margin: 0;
+}
+
 /* ---------------------------------------------------
-   TABLET LAYOUT
+   TABLET
 --------------------------------------------------- */
+
 @media (min-width: 768px) {
   .stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    align-items: start;
+  }
+
+  .overview-card {
+    grid-column: 1 / -1;
   }
 
   .chart-card canvas {
-    max-height: 230px;
+    max-height: 240px;
   }
 }
 
 /* ---------------------------------------------------
-   DESKTOP LAYOUT
+   DESKTOP
 --------------------------------------------------- */
-@media (min-width: 1360px) {
+
+@media (min-width: 1200px) {
   .stats-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+    grid-template-columns: 1.15fr 0.85fr 1fr;
+    gap: 20px;
+  }
+
+  .overview-card {
+    grid-column: auto;
   }
 
   .overview-card,
   .chart-card {
-    padding: 24px 28px;
+    padding: 20px;
   }
 
   .chart-card canvas {
-    max-height: 260px;
+    max-height: 250px;
+  }
+}
+
+/* ---------------------------------------------------
+   MOBILE
+--------------------------------------------------- */
+
+@media (max-width: 767px) {
+  .stats-grid {
+    gap: 16px;
+  }
+
+  .overview-card,
+  .chart-card {
+    padding: 16px;
+  }
+
+  .overview-card h3,
+  .chart-card h4 {
+    font-size: 1rem;
+  }
+
+  .card-subtitle {
+    font-size: 0.88rem;
+  }
+
+  .metrics-grid {
+    gap: 10px;
+  }
+
+  .metric-box {
+    padding: 12px;
+  }
+
+  .metric-value {
+    font-size: 1.05rem;
+  }
+
+  .chart-card canvas {
+    max-height: 210px;
+  }
+}
+
+/* ---------------------------------------------------
+   EXTRA SMALL MOBILE
+--------------------------------------------------- */
+
+@media (max-width: 459px) {
+  .metrics-grid {
+    grid-template-columns: 1fr;
   }
 }

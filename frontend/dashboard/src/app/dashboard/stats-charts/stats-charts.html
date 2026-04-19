@@ -5,32 +5,59 @@
 </div>
 
 <!-- Shows an error message if something went wrong -->
-<div *ngIf="!isLoading && errorMessage">
-  <p class="error">{{ errorMessage }}</p>
+<div *ngIf="!isLoading && errorMessage" class="error-state">
+  <p>{{ errorMessage }}</p>
 </div>
 
-<!-- Main content: only shown when we are not loading and there is no error -->
-<div *ngIf="!isLoading && !errorMessage">
-  <div class="stats-grid">
-    <!-- Overview of API performance -->
-    <div class="overview-card" *ngIf="overview">
+<!-- Main content -->
+<div *ngIf="!isLoading && !errorMessage" class="stats-grid">
+  <!-- Overview metrics -->
+  <div class="overview-card" *ngIf="overview">
+    <div class="card-header">
       <h3>Overview</h3>
-      <p>Total requests: {{ overview.totalRequests }}</p>
-      <p>Error requests: {{ overview.errorRequests }}</p>
-      <p>Error rate: {{ overview.errorRatePercent }}%</p>
-      <p>Average response time: {{ overview.averageResponseTimeMs }} ms</p>
+      <p class="card-subtitle">Current API activity and response health.</p>
     </div>
 
-    <!-- Pie chart for success vs error ratio -->
-    <div class="chart-card">
-      <h4>Success vs Errors</h4>
-      <canvas baseChart [data]="pieChartData" [type]="pieChartType"> </canvas>
+    <div class="metrics-grid">
+      <div class="metric-box">
+        <span class="metric-label">Total requests</span>
+        <span class="metric-value">{{ overview.totalRequests }}</span>
+      </div>
+
+      <div class="metric-box">
+        <span class="metric-label">Failed requests</span>
+        <span class="metric-value error">{{ overview.errorRequests }}</span>
+      </div>
+
+      <div class="metric-box">
+        <span class="metric-label">Error rate</span>
+        <span class="metric-value">{{ overview.errorRatePercent }}%</span>
+      </div>
+
+      <div class="metric-box">
+        <span class="metric-label">Avg response time</span>
+        <span class="metric-value">{{ overview.averageResponseTimeMs }} ms</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pie chart -->
+  <div class="chart-card">
+    <div class="card-header">
+      <h4>Success vs errors</h4>
+      <p class="card-subtitle">Request outcome distribution.</p>
     </div>
 
-    <!-- Bar chart for requests per endpoint -->
-    <div class="chart-card">
+    <canvas baseChart [data]="pieChartData" [type]="pieChartType"></canvas>
+  </div>
+
+  <!-- Bar chart -->
+  <div class="chart-card">
+    <div class="card-header">
       <h4>Most used endpoints</h4>
-      <canvas baseChart [data]="barChartData" [type]="barChartType"> </canvas>
+      <p class="card-subtitle">Top endpoints by request volume.</p>
     </div>
+
+    <canvas baseChart [data]="barChartData" [type]="barChartType"></canvas>
   </div>
 </div>

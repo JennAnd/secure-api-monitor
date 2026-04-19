@@ -1,96 +1,121 @@
-<div class="login-container">
-  <mat-card class="login-card">
-    <h2>Create Account</h2>
-    <p class="subtitle">Register a new account to access your monitoring dashboard</p>
+<div class="register-page">
+  <div class="register-shell">
+    <div class="register-hero">
+      <p class="eyebrow">Secure API Monitor</p>
+      <h1>Create an account</h1>
+      <p class="hero-text">
+        Register a new account to review request activity, failed endpoints and detected security
+        events.
+      </p>
+    </div>
 
-    <form (ngSubmit)="onRegister()">
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Username</mat-label>
-        <input matInput [(ngModel)]="username" name="username" autocomplete="username" />
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Password</mat-label>
-        <input
-          matInput
-          [(ngModel)]="password"
-          name="password"
-          [type]="showPassword ? 'text' : 'password'"
-          autocomplete="new-password"
-        />
-        <button
-          mat-icon-button
-          matSuffix
-          type="button"
-          (click)="showPassword = !showPassword"
-          [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'"
-        >
-          <mat-icon>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
-        </button>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Confirm password</mat-label>
-        <input
-          matInput
-          [(ngModel)]="confirmPassword"
-          name="confirmPassword"
-          [type]="showConfirmPassword ? 'text' : 'password'"
-          autocomplete="new-password"
-        />
-        <button
-          mat-icon-button
-          matSuffix
-          type="button"
-          (click)="showConfirmPassword = !showConfirmPassword"
-          [attr.aria-label]="
-            showConfirmPassword ? 'Hide confirm password' : 'Show confirm password'
-          "
-        >
-          <mat-icon>{{ showConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
-        </button>
-      </mat-form-field>
-
-      <div class="rules">
-        <p><strong>Username rules:</strong></p>
-        <p>• 5 to 30 characters</p>
-        <p>• Must start with a letter</p>
-        <p>• Letters, numbers, and underscore only</p>
-
-        <p><strong>Password rules:</strong></p>
-        <p>• At least 8 characters</p>
-        <p>• One uppercase letter</p>
-        <p>• One lowercase letter</p>
-        <p>• One number</p>
-        <p>• One special character</p>
-        <p>• Password and confirm password must match</p>
+    <mat-card class="register-card">
+      <div class="form-header">
+        <h2>Create account</h2>
+        <p class="form-subtitle">Use a secure username and password to get started.</p>
       </div>
 
-      <!-- Create account button -->
-      <button
-        mat-raised-button
-        color="primary"
-        class="full-width"
-        type="submit"
-        [disabled]="isLoading"
-      >
-        {{ isLoading ? 'Creating account...' : 'Create account' }}
-      </button>
+      <div class="form-layout">
+        <div class="form-section">
+          <form (ngSubmit)="onRegister()">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Username</mat-label>
+              <input matInput [(ngModel)]="username" name="username" autocomplete="username" />
+            </mat-form-field>
 
-      <!-- Back to login -->
-      <button
-        mat-button
-        class="full-width secondary-btn"
-        type="button"
-        (click)="goToLogin()"
-        [disabled]="isLoading"
-      >
-        Back to login
-      </button>
-    </form>
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Password</mat-label>
+              <input
+                matInput
+                [(ngModel)]="password"
+                name="password"
+                [type]="showPassword ? 'text' : 'password'"
+                autocomplete="new-password"
+              />
+              <button
+                mat-icon-button
+                matSuffix
+                type="button"
+                (click)="showPassword = !showPassword"
+                [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'"
+              >
+                <mat-icon>{{ showPassword ? 'visibility' : 'visibility_off' }}</mat-icon>
+              </button>
+            </mat-form-field>
 
-    <p *ngIf="errorMessage" class="error">
-      {{ errorMessage }}
-    </p>
-  </mat-card>
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Confirm password</mat-label>
+              <input
+                matInput
+                [(ngModel)]="confirmPassword"
+                name="confirmPassword"
+                [type]="showConfirmPassword ? 'text' : 'password'"
+                autocomplete="new-password"
+              />
+              <button
+                mat-icon-button
+                matSuffix
+                type="button"
+                (click)="showConfirmPassword = !showConfirmPassword"
+                [attr.aria-label]="
+                  showConfirmPassword ? 'Hide confirm password' : 'Show confirm password'
+                "
+              >
+                <mat-icon>{{ showConfirmPassword ? 'visibility' : 'visibility_off' }}</mat-icon>
+              </button>
+            </mat-form-field>
+
+            <button
+              mat-raised-button
+              color="primary"
+              class="full-width"
+              type="submit"
+              [disabled]="isLoading"
+            >
+              {{ isLoading ? 'Creating account...' : 'Create account' }}
+            </button>
+
+            <button
+              mat-button
+              class="full-width secondary-btn"
+              type="button"
+              (click)="goToLogin()"
+              [disabled]="isLoading"
+            >
+              Back to sign in
+            </button>
+          </form>
+        </div>
+
+        <aside class="rules-card">
+          <h3>Account rules</h3>
+
+          <div class="rule-group">
+            <p class="rule-title">Username</p>
+            <ul>
+              <li>5 to 30 characters</li>
+              <li>Must start with a letter</li>
+              <li>Letters, numbers and underscore only</li>
+            </ul>
+          </div>
+
+          <div class="rule-group">
+            <p class="rule-title">Password</p>
+            <ul>
+              <li>At least 8 characters</li>
+              <li>One uppercase letter</li>
+              <li>One lowercase letter</li>
+              <li>One number</li>
+              <li>One special character</li>
+              <li>Must match confirm password</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+
+      <p *ngIf="errorMessage" class="error">
+        {{ errorMessage }}
+      </p>
+    </mat-card>
+  </div>
 </div>

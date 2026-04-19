@@ -1,36 +1,55 @@
 <div class="settings-wrapper">
-  <h2>Settings</h2>
-
-  <!-- Current session -->
-  <div class="settings-card">
-    <h3>Current session</h3>
-    <p class="section-text">Your current authenticated session.</p>
-
-    <p><strong>Signed in as:</strong> {{ username }}</p>
-    <p><strong>Status:</strong> <span class="status"> Active</span></p>
+  <div class="settings-header">
+    <h2>Settings</h2>
+    <p class="settings-intro">
+      Manage your current session and control how API log updates are handled.
+    </p>
   </div>
 
-  <!-- Preferences -->
-  <div class="settings-card">
-    <h3>Preferences</h3>
-    <p class="section-text">Control how often API Logs refresh automatically.</p>
+  <div class="settings-section">
+    <h3 class="section-heading">Session</h3>
 
-    <label>
-      <input type="checkbox" [(ngModel)]="autoRefresh" />
-      Enable auto refresh
-    </label>
+    <div class="settings-card session-card">
+      <div class="info-row">
+        <span class="info-label">Signed in as</span>
+        <span class="info-value">{{ username }}</span>
+      </div>
 
-    <label>
-      Refresh interval (seconds):
-      <select [(ngModel)]="refreshSeconds" [disabled]="!autoRefresh">
-        <option [value]="5">5</option>
-        <option [value]="10">10</option>
-        <option [value]="30">30</option>
-      </select>
-    </label>
+      <div class="info-row">
+        <span class="info-label">Status</span>
+        <span class="status-badge">Active</span>
+      </div>
+    </div>
+  </div>
 
-    <button (click)="save()" [disabled]="!hasChanges()">Save</button>
+  <div class="settings-section">
+    <h3 class="section-heading">Preferences</h3>
 
-    <p class="save-message" *ngIf="saved">✓ Changes saved</p>
+    <div class="settings-card preferences-card">
+      <p class="section-text">
+        Choose whether API Logs should refresh automatically and how often updates should run.
+      </p>
+
+      <label class="checkbox-row">
+        <input type="checkbox" [(ngModel)]="autoRefresh" />
+        Enable auto refresh
+      </label>
+
+      <div class="field-row">
+        <label for="refreshInterval" class="field-label">Refresh interval</label>
+
+        <select id="refreshInterval" [(ngModel)]="refreshSeconds" [disabled]="!autoRefresh">
+          <option [value]="5">5 seconds</option>
+          <option [value]="10">10 seconds</option>
+          <option [value]="30">30 seconds</option>
+        </select>
+      </div>
+
+      <div class="settings-actions">
+        <button (click)="save()" [disabled]="!hasChanges()">Save</button>
+
+        <p class="save-message" *ngIf="saved">✓ Changes saved</p>
+      </div>
+    </div>
   </div>
 </div>

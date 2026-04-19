@@ -2,55 +2,117 @@
    REGISTER PAGE
 -------------------------------------------- */
 
-.login-container {
+.register-page {
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: var(--bg-main);
-  padding: 20px;
+  padding: 24px;
+  box-sizing: border-box;
 }
 
-/* Main register card */
-.login-card {
+.register-shell {
   width: 100%;
-  max-width: 380px;
-  padding: 28px 26px 32px;
-  border-radius: 14px;
+  max-width: 860px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 
+/* --------------------------------------------
+   HERO / INTRO
+-------------------------------------------- */
+
+.register-hero {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+
+.register-hero h1 {
+  margin: 0;
+  font-size: 1.85rem;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--text-main);
+  font-weight: 600;
+  max-width: 14ch;
+}
+
+.hero-text {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.98rem;
+  line-height: 1.5;
+  max-width: 42ch;
+}
+
+/* --------------------------------------------
+   CARD
+-------------------------------------------- */
+
+.register-card {
+  width: 100%;
+  padding: 22px;
+  border-radius: var(--radius-md);
   background: var(--card-bg);
   border: 1px solid var(--border-subtle);
-
-  box-shadow:
-    0 20px 40px rgba(0, 0, 0, 0.08),
-    0 4px 12px rgba(0, 0, 0, 0.05),
-    0 1px 2px rgba(0, 0, 0, 0.03);
+  box-shadow: none;
 }
 
-/* Title */
-.login-card h2 {
-  margin: 0 0 6px 0;
-  font-size: 1.42rem;
+.form-header {
+  margin-bottom: 18px;
+}
+
+.form-header h2 {
+  margin: 0 0 4px;
+  font-size: 1.1rem;
   font-weight: 600;
   letter-spacing: -0.01em;
   color: var(--text-main);
 }
 
-/* Subtitle */
-.subtitle {
-  margin: 0 0 24px 0;
+.form-subtitle {
+  margin: 0;
   color: var(--text-muted);
-  font-size: 0.95rem;
+  font-size: 0.93rem;
+  line-height: 1.45;
 }
 
-/* Full width utility */
+/* --------------------------------------------
+   FORM + RULES LAYOUT
+-------------------------------------------- */
+
+.form-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-section {
+  min-width: 0;
+}
+
+/* --------------------------------------------
+   FORM
+-------------------------------------------- */
+
 .full-width {
   width: 100%;
 }
 
-/* Spacing between form fields */
 mat-form-field.full-width {
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
 /* --------------------------------------------
@@ -59,7 +121,7 @@ mat-form-field.full-width {
 
 .mdc-text-field {
   background: #ffffff;
-  border-radius: 10px !important;
+  border-radius: var(--radius-sm) !important;
   transition:
     background 0.15s ease,
     border-color 0.15s ease,
@@ -69,24 +131,24 @@ mat-form-field.full-width {
 .mdc-notched-outline__leading,
 .mdc-notched-outline__notch,
 .mdc-notched-outline__trailing {
-  border-radius: 10px !important;
+  border-radius: var(--radius-sm) !important;
 }
 
 .mdc-text-field--outlined {
-  border-radius: 10px !important;
+  border-radius: var(--radius-sm) !important;
 }
 
 .mdc-text-field:hover .mdc-notched-outline__leading,
 .mdc-text-field:hover .mdc-notched-outline__notch,
 .mdc-text-field:hover .mdc-notched-outline__trailing {
-  border-color: var(--primary);
+  border-color: var(--border-strong);
 }
 
 .mdc-text-field--focused .mdc-notched-outline__leading,
 .mdc-text-field--focused .mdc-notched-outline__notch,
 .mdc-text-field--focused .mdc-notched-outline__trailing {
   border-color: var(--primary) !important;
-  box-shadow: 0 0 0 2px rgba(196, 106, 43, 0.18);
+  box-shadow: none;
 }
 
 .mat-mdc-form-field.mat-focused .mat-mdc-floating-label {
@@ -97,70 +159,117 @@ mat-form-field.full-width {
   caret-color: var(--primary);
 }
 
-/* --------------------------------------------
-   PRIMARY BUTTON (Create Account)
--------------------------------------------- */
-
-.login-card button[mat-raised-button] {
-  background: linear-gradient(to bottom right, var(--primary), #b65e22);
-  color: #ffffff;
-  border-radius: 999px;
-  font-weight: 600;
-  letter-spacing: 0.03em;
-  padding: 12px 0;
-  font-size: 1rem;
-
-  transition:
-    background 0.2s ease,
-    box-shadow 0.2s ease,
-    transform 0.15s ease;
-
-  box-shadow:
-    0 6px 16px rgba(196, 106, 43, 0.28),
-    0 2px 4px rgba(196, 106, 43, 0.18);
+button[mat-icon-button] {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.login-card button[mat-raised-button]:hover {
-  background: linear-gradient(to bottom right, var(--secondary), #7a3f22);
-  box-shadow:
-    0 10px 24px rgba(196, 106, 43, 0.34),
-    0 3px 6px rgba(0, 0, 0, 0.16);
+mat-icon {
+  font-size: 17px;
+  width: 17px;
+  height: 17px;
+  line-height: 17px;
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+button[mat-icon-button]:hover mat-icon {
+  color: var(--text-main);
+  opacity: 1;
+}
+
+/* --------------------------------------------
+   RULES CARD
+-------------------------------------------- */
+
+.rules-card {
+  border: 1px solid rgba(17, 24, 39, 0.06);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.7);
+  padding: 16px;
+}
+
+.rules-card h3 {
+  margin: 0 0 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.rule-group + .rule-group {
+  margin-top: 14px;
+}
+
+.rule-title {
+  margin: 0 0 6px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.rules-card ul {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--text-muted);
+}
+
+.rules-card li {
+  margin: 0 0 4px;
+  font-size: 0.84rem;
+  line-height: 1.4;
+}
+
+/* --------------------------------------------
+   BUTTONS
+-------------------------------------------- */
+
+.register-card button[mat-raised-button] {
+  background: var(--primary);
+  color: #ffffff;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  letter-spacing: 0;
+  padding: 11px 0;
+  font-size: 0.96rem;
+  box-shadow: none;
+  transition:
+    background-color 0.18s ease,
+    transform 0.12s ease;
+}
+
+.register-card button[mat-raised-button]:hover {
+  background: var(--primary-hover);
   transform: translateY(-1px);
 }
 
-.login-card button[mat-raised-button]:active {
+.register-card button[mat-raised-button]:active {
   transform: translateY(0);
-  box-shadow:
-    0 4px 12px rgba(196, 106, 43, 0.22),
-    0 2px 4px rgba(0, 0, 0, 0.12);
 }
 
-.login-card button[mat-raised-button][disabled] {
-  background-color: #d3c6ba;
-  color: #f8f4f0;
+.register-card button[mat-raised-button][disabled] {
+  background-color: #e5e7eb;
+  color: #9ca3af;
   box-shadow: none;
 }
 
-/* --------------------------------------------
-   SECONDARY TEXT BUTTON (Back to login)
--------------------------------------------- */
-
 .secondary-btn {
-  margin-top: 10px;
-  color: var(--secondary) !important;
-  font-weight: 600;
-  opacity: 0.85;
-  border-radius: 8px;
+  margin-top: 8px;
+  color: var(--text-muted) !important;
+  font-weight: 500;
+  border-radius: var(--radius-sm);
   padding: 8px 0;
-
   transition:
-    opacity 0.2s ease,
-    background 0.2s ease;
+    color 0.18s ease,
+    background-color 0.18s ease;
 }
 
 .secondary-btn:hover {
-  background: rgba(196, 106, 43, 0.08);
-  opacity: 1;
+  background: rgba(17, 24, 39, 0.04);
+  color: var(--text-main) !important;
 }
 
 /* --------------------------------------------
@@ -173,31 +282,80 @@ mat-form-field.full-width {
   font-size: 0.9rem;
 }
 
-.rules {
-  margin: 0 0 1rem 0;
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  line-height: 1.35;
-}
-
-.rules p {
-  margin: 0.18rem 0;
-}
-
 /* --------------------------------------------
    DESKTOP
 -------------------------------------------- */
 
 @media (min-width: 768px) {
-  .login-card {
-    padding: 34px 34px 38px;
+  .register-page {
+    padding: 32px;
   }
 
-  .login-card h2 {
+  .register-shell {
+    max-width: 900px;
+    gap: 22px;
+  }
+
+  .register-hero h1 {
+    font-size: 2rem;
+  }
+
+  .register-card {
+    padding: 24px;
+  }
+
+  .form-layout {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .form-section {
+    flex: 1;
+  }
+
+  .rules-card {
+    width: 250px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 24px;
+  }
+}
+
+/* --------------------------------------------
+   EXTRA SMALL MOBILE
+-------------------------------------------- */
+
+@media (max-width: 459px) {
+  .register-page {
+    padding: 16px;
+  }
+
+  .register-shell {
+    gap: 16px;
+  }
+
+  .register-hero h1 {
     font-size: 1.55rem;
   }
 
-  .subtitle {
+  .hero-text {
+    font-size: 0.92rem;
+  }
+
+  .register-card {
+    padding: 16px;
+  }
+
+  .form-header h2 {
     font-size: 1rem;
+  }
+
+  .form-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .rules-card li {
+    font-size: 0.82rem;
   }
 }

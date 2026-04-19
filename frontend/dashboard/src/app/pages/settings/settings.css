@@ -1,148 +1,309 @@
 /* --------------------------------------------
-   OVERVIEW PAGE
+   SETTINGS PAGE
 -------------------------------------------- */
 
 /* Page layout */
 .settings-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 28px;
   width: 100%;
-  max-width: 640px;
+  max-width: 720px;
+  padding-bottom: 0;
 }
 
-.settings-wrapper h2 {
-  margin: 0;
-  font-size: 1.3rem;
+/* Main page heading */
+.settings-header h2 {
+  margin: 0 0 6px;
+  font-size: 1.55rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
   color: var(--text-main);
-  opacity: 0.9;
 }
 
-/* Cards — same visual style as dashboard sections */
+/* Intro text under main heading */
+.settings-intro {
+  margin: 0;
+  font-size: 0.96rem;
+  color: var(--text-muted);
+  max-width: 600px;
+}
+
+/* Section wrappers */
+.settings-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Small section headings */
+.section-heading {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+
+/* --------------------------------------------
+   CARDS
+-------------------------------------------- */
+
 .settings-card {
   background: var(--card-bg);
   border: 1px solid var(--border-subtle);
-  border-radius: 14px;
-  padding: 20px 22px;
+  border-radius: var(--radius-md);
+  padding: 20px;
   width: 100%;
-  max-width: 460px;
   box-sizing: border-box;
-
-  box-shadow:
-    0 12px 28px rgba(0, 0, 0, 0.05),
-    0 3px 6px rgba(0, 0, 0, 0.04);
+  box-shadow: none;
 }
 
-/* Titles */
-.settings-card h3 {
-  margin: 0 0 12px 0;
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: var(--text-main);
+.session-card,
+.preferences-card {
+  max-width: 520px;
 }
 
-.status {
-  color: #2e7d32;
-  font-weight: 600;
-}
+/* --------------------------------------------
+   TEXT CONTENT
+-------------------------------------------- */
 
-/* Text under section titles */
 .section-text {
-  margin: 0 0 12px 0;
+  margin: 0 0 18px;
   color: var(--text-muted);
+  font-size: 0.94rem;
+  line-height: 1.5;
+}
+
+/* --------------------------------------------
+   SESSION INFO
+-------------------------------------------- */
+
+.info-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(17, 24, 39, 0.06);
+}
+
+.info-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.info-label {
   font-size: 0.92rem;
+  color: var(--text-muted);
 }
 
-/* Paragraphs inside cards */
-.settings-card p {
-  margin: 0 0 10px 0;
-  color: var(--text-main);
+.info-value {
   font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-main);
 }
 
-/* Labels */
-.settings-card label {
+/* Status badge */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(31, 143, 95, 0.1);
+  color: var(--success);
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+/* --------------------------------------------
+   PREFERENCES FORM
+-------------------------------------------- */
+
+.checkbox-row {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-top: 12px;
-  color: var(--text-main);
+  margin: 0 0 18px;
   font-size: 0.95rem;
+  color: var(--text-main);
 }
 
-/* Select */
+.checkbox-row input {
+  accent-color: var(--primary);
+}
+
+.field-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.field-label {
+  font-size: 0.94rem;
+  color: var(--text-main);
+}
+
+/* Select field */
 .settings-card select {
-  margin-left: auto;
-  padding: 6px 10px;
-  border-radius: 8px;
+  min-width: 150px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
   border: 1px solid var(--border-subtle);
-  background: white;
+  background: var(--card-bg);
+  color: var(--text-main);
+  font: inherit;
 }
 
-/* Buttons */
+.settings-card select:disabled {
+  background: #f3f4f6;
+  color: var(--text-soft);
+}
+
+/* --------------------------------------------
+   ACTIONS
+-------------------------------------------- */
+
+.settings-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+/* Save button */
 .settings-card button {
-  margin-top: 16px;
-  padding: 9px 16px;
-  border-radius: 10px;
-  border: none;
+  padding: 9px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
   background: var(--primary);
   color: white;
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 0.92rem;
   cursor: pointer;
-
+  box-shadow: none;
   transition:
-    transform 0.12s ease,
-    box-shadow 0.12s ease,
-    background 0.12s ease;
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease;
 }
 
-/* Hover */
 .settings-card button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 14px rgba(196, 106, 43, 0.25);
+  background: var(--primary-hover);
 }
 
-/* Click press effect */
 .settings-card button:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 6px rgba(196, 106, 43, 0.25);
+  background: var(--primary-hover);
 }
 
 .settings-card button:disabled {
-  background: #d3c6ba;
-  color: #f8f4f0;
+  background: #e5e7eb;
+  color: #9ca3af;
   cursor: not-allowed;
-  box-shadow: none;
-  transform: none;
-  opacity: 0.7;
+  border-color: transparent;
 }
 
 .settings-card button:disabled:hover {
-  transform: none;
-  box-shadow: none;
-  background: #d3c6ba;
+  background: #e5e7eb;
 }
 
 /* Save feedback */
-.settings-card .save-message {
-  margin-top: 10px;
+.save-message {
+  margin: 0;
   font-size: 0.9rem;
-  color: #2e7d32;
+  color: var(--success);
   font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 6px;
+}
+
+.settings-section:last-child {
+  margin-bottom: 32px;
 }
 
 /* --------------------------------------------
    MOBILE LAYOUT
 -------------------------------------------- */
 
-/* Cards */
 @media (max-width: 767px) {
+  .settings-wrapper {
+    max-width: 100%;
+    padding-bottom: 0;
+    gap: 20px;
+  }
+
+  .settings-header,
+  .settings-section {
+    width: 100%;
+    max-width: 520px;
+  }
+
+  .session-card,
+  .preferences-card {
+    width: 100%;
+    max-width: 520px;
+  }
+
   .settings-card {
-    width: calc(100% - 24px);
-    max-width: none;
-    margin-left: 0;
+    padding: 16px;
+  }
+
+  .field-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .settings-card select {
+    width: 100%;
+  }
+
+  .settings-section:last-child {
+    margin-bottom: 48px;
+  }
+}
+
+@media (max-width: 459px) {
+  .settings-wrapper {
+    gap: 16px;
+  }
+
+  .settings-header h2 {
+    font-size: 1.2rem;
+  }
+
+  .settings-intro {
+    font-size: 0.9rem;
+  }
+
+  .section-heading {
+    font-size: 0.72rem;
+  }
+
+  .settings-card {
+    padding: 14px;
+  }
+
+  .info-row {
+    gap: 10px;
+    padding: 10px 0;
+  }
+
+  .info-label,
+  .info-value,
+  .field-label,
+  .checkbox-row,
+  .section-text {
+    font-size: 0.9rem;
+  }
+
+  .status-badge {
+    font-size: 0.8rem;
+    padding: 3px 8px;
+  }
+
+  .settings-card button {
+    padding: 8px 12px;
+    font-size: 0.88rem;
   }
 }

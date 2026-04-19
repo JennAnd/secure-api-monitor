@@ -5,20 +5,24 @@
 </div>
 
 <!-- Error -->
-<div *ngIf="!isLoading && errorMessage" class="state-message error">
+<div *ngIf="!isLoading && errorMessage" class="error-state">
   {{ errorMessage }}
 </div>
 
 <!-- No errors -->
-<div *ngIf="!isLoading && !errorMessage && endpoints.length === 0" class="state-message">
-  No error activity detected.
+<div *ngIf="!isLoading && !errorMessage && endpoints.length === 0" class="empty-state">
+  <div class="empty-icon">✓</div>
+  <h3>No error activity detected</h3>
+  <p>All monitored endpoints are currently responding without failed requests.</p>
 </div>
 
-<!-- Error table -->
+<!-- Error cards -->
 <div *ngIf="!isLoading && endpoints.length > 0" class="error-stats-wrapper">
   <div class="error-header">
     <h2>Error Statistics</h2>
-    <p>Shows which endpoints have the highest proportion of failed requests.</p>
+    <p class="error-intro">
+      See which endpoints currently have the highest proportion of failed requests.
+    </p>
   </div>
 
   <div class="error-list">

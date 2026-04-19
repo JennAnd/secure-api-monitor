@@ -1,7 +1,12 @@
 <!-- Loading -->
 <div class="security-events-wrapper">
-  <h2>Security Events</h2>
-  <p>Detects suspicious activity such as repeated failed requests or unusual API usage.</p>
+  <div class="security-header">
+    <h2>Security Events</h2>
+    <p class="security-intro">
+      Detects suspicious activity such as repeated failed requests or unusual API usage.
+    </p>
+  </div>
+
   <div *ngIf="isLoading" class="loading-state">
     <mat-spinner diameter="32"></mat-spinner>
     <p>Loading security analysis...</p>
@@ -24,17 +29,20 @@
     <div class="event-card" *ngFor="let e of events">
       <div class="event-header">
         <span class="badge danger">{{ e.type }}</span>
-        <span class="ip">{{ e.ip }}</span>
+        <span class="ip" *ngIf="e.ip && e.ip !== '-'">{{ e.ip }}</span>
       </div>
 
       <div class="event-body">
-        <p>{{ e.description }}</p>
+        <p class="event-description">{{ e.description }}</p>
         <!-- Show endpoint when the event is related to one-->
-        <div class="meta" *ngIf="e.endpoint">
-          Endpoint: <strong>{{ e.endpoint }}</strong>
+        <div class="meta-row" *ngIf="e.endpoint">
+          <span class="meta-label">Endpoint</span>
+          <strong class="meta-value">{{ e.endpoint }}</strong>
         </div>
-        <div class="meta">
-          Attempts: <strong>{{ e.count }}</strong>
+
+        <div class="meta-row">
+          <span class="meta-label">{{ e.countLabel }}</span>
+          <strong class="meta-value">{{ e.count }}</strong>
         </div>
       </div>
     </div>

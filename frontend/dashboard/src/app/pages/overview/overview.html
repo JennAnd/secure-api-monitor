@@ -1,7 +1,27 @@
 <div class="overview-wrapper">
   <div class="dashboard-header">
-    <h1>Secure API Monitor - Dashboard</h1>
-    <p>Monitor your API performance, errors and security with live updates.</p>
+    <h1>API Overview</h1>
+    <p class="dashboard-intro">
+      Monitor request volume, failed requests and endpoint activity across the monitored API.
+    </p>
   </div>
+
+  <div class="dashboard-status-row">
+    <div class="status-item">
+      <span class="status-dot success"></span>
+      <span class="status-label">Healthy traffic</span>
+    </div>
+
+    <div class="status-item">
+      <span class="status-dot warning"></span>
+      <span class="status-label">Warnings detected</span>
+    </div>
+
+    <div class="status-item">
+      <span class="status-dot danger"></span>
+      <span class="status-label">Critical issues</span>
+    </div>
+  </div>
+
   <app-stats-charts></app-stats-charts>
 </div>
