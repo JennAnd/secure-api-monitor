@@ -24,6 +24,10 @@ export class StatsChartsComponent implements OnInit {
   isLoading = false;
   errorMessage = '';
 
+  // 👇 LÄGG TILL HÄR
+  statusLevel: 'healthy' | 'warning' | 'critical' = 'healthy';
+  statusMessage = '';
+
   // Data models
   overview?: OverviewStats;
   endpoints: EndpointStats[] = [];
@@ -53,6 +57,18 @@ export class StatsChartsComponent implements OnInit {
     this.stats.getOverviewStats().subscribe({
       next: (o) => {
         this.overview = o;
+
+        // Calculate status based on error rate
+        if (o.errorRatePercent < 5) {
+          this.statusLevel = 'healthy';
+          this.statusMessage = 'System operating normally';
+        } else if (o.errorRatePercent < 15) {
+          this.statusLevel = 'warning';
+          this.statusMessage = 'Increased error rate detected';
+        } else {
+          this.statusLevel = 'critical';
+          this.statusMessage = 'High error rate – review recent failures';
+        }
 
         // Calculate number of successful requests
         const success = o.totalRequests - o.errorRequests;

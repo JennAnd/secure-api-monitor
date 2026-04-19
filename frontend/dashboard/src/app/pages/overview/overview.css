@@ -45,47 +45,6 @@
    STATUS ROW
 -------------------------------------------- */
 
-.dashboard-status-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.status-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 14px;
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  background: var(--card-bg);
-}
-
-.status-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 999px;
-  flex-shrink: 0;
-}
-
-.status-dot.success {
-  background: var(--success);
-}
-
-.status-dot.warning {
-  background: var(--warning);
-}
-
-.status-dot.danger {
-  background: var(--error);
-}
-
-.status-label {
-  font-size: 0.92rem;
-  font-weight: 500;
-  color: var(--text-main);
-}
-
 /* --------------------------------------------
    MOBILE LAYOUT
 -------------------------------------------- */
@@ -101,15 +60,6 @@
   .dashboard-intro {
     font-size: 0.92rem;
     max-width: none;
-  }
-
-  .dashboard-status-row {
-    gap: 10px;
-  }
-
-  .status-item {
-    width: 100%;
-    box-sizing: border-box;
   }
 }
 

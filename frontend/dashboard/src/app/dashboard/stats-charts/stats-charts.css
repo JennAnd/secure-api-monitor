@@ -2,6 +2,71 @@
    STATS + CHARTS
 --------------------------------------------------- */
 
+.stats-content {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+  max-width: 1040px;
+}
+
+/* ---------------------------------------------------
+   STATUS ROW
+--------------------------------------------------- */
+
+.dashboard-status-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.status-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background: var(--card-bg);
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.status-dot.success {
+  background: var(--success);
+}
+
+.status-dot.warning {
+  background: var(--warning);
+}
+
+.status-dot.danger {
+  background: var(--error);
+}
+
+.status-label {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--text-main);
+}
+
+.status-item.active {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 1px rgba(196, 106, 43, 0.2);
+  background: rgba(196, 106, 43, 0.04);
+}
+
+.status-message {
+  margin: -6px 0 0 2px;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
 /* Wrapper grid for overview + charts */
 .stats-grid {
   display: flex;
@@ -158,12 +223,12 @@
 
 @media (min-width: 1200px) {
   .stats-grid {
-    grid-template-columns: 1.15fr 0.85fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 20px;
   }
 
   .overview-card {
-    grid-column: auto;
+    grid-column: 1 / -1;
   }
 
   .overview-card,
@@ -181,6 +246,13 @@
 --------------------------------------------------- */
 
 @media (max-width: 767px) {
+  .dashboard-status-row {
+    gap: 10px;
+  }
+  .status-item {
+    width: 100%;
+    box-sizing: border-box;
+  }
   .stats-grid {
     gap: 16px;
   }
