@@ -24,7 +24,8 @@ public class AuthIntegrationTests : IClassFixture<WebApplicationFactory<Program>
         var request = new
         {
             Username = CreateUsername(),
-            Password = "Test123!"
+            Password = "Test123!",
+            ConfirmPassword = "Test123!"
         };
 
         var response = await _client.PostAsJsonAsync("/api/auth/register", request);
@@ -45,7 +46,8 @@ public class AuthIntegrationTests : IClassFixture<WebApplicationFactory<Program>
         var request = new
         {
             Username = username,
-            Password = password
+            Password = password,
+            ConfirmPassword = password
         };
 
         var firstResponse = await _client.PostAsJsonAsync("/api/auth/register", request);
@@ -69,7 +71,8 @@ public class AuthIntegrationTests : IClassFixture<WebApplicationFactory<Program>
         var registerRequest = new
         {
             Username = username,
-            Password = password
+            Password = password,
+            ConfirmPassword = password
         };
 
         await _client.PostAsJsonAsync("/api/auth/register", registerRequest);
@@ -98,7 +101,8 @@ public class AuthIntegrationTests : IClassFixture<WebApplicationFactory<Program>
         var registerRequest = new
         {
             Username = username,
-            Password = password
+            Password = password,
+            ConfirmPassword = password
         };
 
         await _client.PostAsJsonAsync("/api/auth/register", registerRequest);
@@ -121,7 +125,8 @@ public class AuthIntegrationTests : IClassFixture<WebApplicationFactory<Program>
         var request = new
         {
             Username = CreateUsername(),
-            Password = "weak"
+            Password = "weak",
+            ConfirmPassword = "weak"
         };
 
         var response = await _client.PostAsJsonAsync("/api/auth/register", request);
@@ -130,6 +135,25 @@ public class AuthIntegrationTests : IClassFixture<WebApplicationFactory<Program>
 
         var body = await response.Content.ReadAsStringAsync();
         Assert.Contains("Password", body);
+    }
+
+    // Test that register fails when password and confirm password do not match
+    [Fact]
+    public async Task Register_ReturnsBadRequest_WhenPasswordsDoNotMatch()
+    {
+        var request = new
+        {
+            Username = CreateUsername(),
+            Password = "Test123!",
+            ConfirmPassword = "Wrong123!"
+        };
+
+        var response = await _client.PostAsJsonAsync("/api/auth/register", request);
+
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+
+        var body = await response.Content.ReadAsStringAsync();
+        Assert.Contains("Passwords do not match", body);
     }
 
     // Test that a protected endpoint returns unauthorized without a token
@@ -151,7 +175,8 @@ public class AuthIntegrationTests : IClassFixture<WebApplicationFactory<Program>
         var registerRequest = new
         {
             Username = username,
-            Password = password
+            Password = password,
+            ConfirmPassword = password
         };
 
         var registerResponse = await _client.PostAsJsonAsync("/api/auth/register", registerRequest);

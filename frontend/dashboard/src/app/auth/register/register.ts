@@ -29,9 +29,11 @@ export class RegisterComponent {
   // Bound to the form inputs
   username = '';
   password = '';
+  confirmPassword = '';
 
   // Controls whether the password is visible or hidden
   showPassword = false;
+  showConfirmPassword = false;
 
   // UI state flags
   isLoading = false;
@@ -48,8 +50,8 @@ export class RegisterComponent {
     this.errorMessage = '';
 
     // Check that both fields are filled
-    if (!this.username || !this.password) {
-      this.errorMessage = 'Please enter both username and password.';
+    if (!this.username || !this.password || !this.confirmPassword) {
+      this.errorMessage = 'Please enter username, password, and confirm password.';
       return;
     }
 
@@ -84,10 +86,15 @@ export class RegisterComponent {
       return;
     }
 
+    if (this.password !== this.confirmPassword) {
+      this.errorMessage = 'Passwords do not match.';
+      return;
+    }
+
     this.isLoading = true;
 
     // Call backend /auth/register endpoint
-    this.authService.register(this.username, this.password).subscribe({
+    this.authService.register(this.username, this.password, this.confirmPassword).subscribe({
       next: () => {
         this.isLoading = false;
         this.cdr.detectChanges();

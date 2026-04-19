@@ -29,6 +29,28 @@
         </button>
       </mat-form-field>
 
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Confirm password</mat-label>
+        <input
+          matInput
+          [(ngModel)]="confirmPassword"
+          name="confirmPassword"
+          [type]="showConfirmPassword ? 'text' : 'password'"
+          autocomplete="new-password"
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          (click)="showConfirmPassword = !showConfirmPassword"
+          [attr.aria-label]="
+            showConfirmPassword ? 'Hide confirm password' : 'Show confirm password'
+          "
+        >
+          <mat-icon>{{ showConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+      </mat-form-field>
+
       <div class="rules">
         <p><strong>Username rules:</strong></p>
         <p>• 5 to 30 characters</p>
@@ -41,6 +63,7 @@
         <p>• One lowercase letter</p>
         <p>• One number</p>
         <p>• One special character</p>
+        <p>• Password and confirm password must match</p>
       </div>
 
       <!-- Create account button -->

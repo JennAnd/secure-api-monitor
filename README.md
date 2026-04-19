@@ -8,6 +8,7 @@ A fullstack web application for monitoring API activity, tracking security-relat
 
 - Authentication with JWT
 - Secure password hashing
+- Confirm password validation (frontend + backend)
 - Input validation and protected endpoints
 - API request logging via middleware
 - Dashboard with charts and logs

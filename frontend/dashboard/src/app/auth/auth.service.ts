@@ -28,15 +28,16 @@ export class AuthService {
       .pipe(
         tap((response) => {
           this.saveToken(response.token);
-        })
+        }),
       );
   }
 
   // Sends a request to create a new user account
-  register(username: string, password: string): Observable<any> {
+  register(username: string, password: string, confirmPassword: string): Observable<any> {
     return this.http.post(`${this.apiBaseUrl}/auth/register`, {
       username,
       password,
+      confirmPassword,
     });
   }
 
