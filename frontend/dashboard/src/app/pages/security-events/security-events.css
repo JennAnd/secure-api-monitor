@@ -61,6 +61,7 @@
 .badge {
   display: inline-flex;
   align-items: center;
+  gap: 8px;
   padding: 5px 10px;
   border-radius: 999px;
   font-size: 0.76rem;
@@ -68,9 +69,29 @@
   letter-spacing: 0.02em;
 }
 
-.badge.danger {
-  background: rgba(194, 59, 42, 0.1);
+.badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.badge.critical {
+  background: rgba(192, 57, 43, 0.12);
   color: var(--error);
+}
+
+.badge.critical .badge-dot {
+  background: var(--error);
+}
+
+.badge.warning {
+  background: rgba(196, 106, 43, 0.12);
+  color: var(--primary);
+}
+
+.badge.warning .badge-dot {
+  background: var(--primary);
 }
 
 .ip {
@@ -85,7 +106,7 @@
 }
 
 .event-description {
-  margin: 0;
+  margin: 0 0 12px 0;
   font-size: 0.96rem;
   line-height: 1.5;
   color: var(--text-main);

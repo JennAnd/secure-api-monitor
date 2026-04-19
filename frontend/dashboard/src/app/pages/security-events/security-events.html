@@ -28,7 +28,13 @@
   <div class="events" *ngIf="events.length > 0">
     <div class="event-card" *ngFor="let e of events">
       <div class="event-header">
-        <span class="badge danger">{{ e.type }}</span>
+        <span
+          class="badge"
+          [class.critical]="e.severity === 'critical'"
+          [class.warning]="e.severity === 'warning'"
+        >
+          <span class="badge-dot"></span> {{ e.type }}
+        </span>
         <span class="ip" *ngIf="e.ip && e.ip !== '-'">{{ e.ip }}</span>
       </div>
 

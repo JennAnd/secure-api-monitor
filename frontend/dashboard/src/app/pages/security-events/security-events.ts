@@ -27,6 +27,7 @@ interface SecurityEvent {
   count: number;
   countLabel: string;
   endpoint?: string;
+  severity: 'warning' | 'critical';
 }
 
 @Component({
@@ -106,10 +107,11 @@ export class SecurityEvents implements OnInit {
       if (grouped[ip] >= 5) {
         this.events.push({
           type: 'Brute force attempt',
-          description: 'Multiple failed login attempts detected',
+          description: 'Multiple failed login attempts from the same IP',
           ip,
           count: grouped[ip],
           countLabel: 'Attempts',
+          severity: 'critical',
         });
       }
     }
@@ -144,11 +146,12 @@ export class SecurityEvents implements OnInit {
         if (errorRate >= 30) {
           this.events.push({
             type: 'High error rate',
-            description: 'Unusually high number of failed requests detected',
+            description: 'Unusually high number of failed requests for this endpoint',
             ip: '-',
             endpoint,
             count: errors,
             countLabel: 'Failed requests',
+            severity: 'warning',
           });
         }
       }
@@ -167,11 +170,12 @@ export class SecurityEvents implements OnInit {
       if (grouped[endpoint] >= 3) {
         this.events.push({
           type: 'Unknown endpoint access',
-          description: 'Repeated requests to an unknown endpoint detected',
+          description: 'Repeated requests to an unknown endpoint',
           ip: '-',
           endpoint,
           count: grouped[endpoint],
           countLabel: 'Requests',
+          severity: 'warning',
         });
       }
     }
@@ -196,11 +200,12 @@ export class SecurityEvents implements OnInit {
       if (grouped[endpoint] >= 1) {
         this.events.push({
           type: 'Sensitive endpoint probe',
-          description: 'Request to a sensitive or suspicious endpoint detected',
+          description: 'Request to a sensitive or suspicious endpoint',
           ip: '-',
           endpoint,
           count: grouped[endpoint],
-          countLabel: 'Requests',
+          countLabel: 'Attempts',
+          severity: 'critical',
         });
       }
     }
